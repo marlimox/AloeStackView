@@ -1,0 +1,5 @@
+language: objective-c
+osx_image: xcode10
+xcode_project: AloeStackView.xcodeproj
+xcode_scheme: AloeStackView
+xcode_destination: platform=iOS Simulator,OS=9.0,name=iPhone 6s
