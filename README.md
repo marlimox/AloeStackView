@@ -26,7 +26,7 @@ listing, to the listing share sheet.
 `AloeStackView` focuses first and foremost on making UI very quick, simple, and straightforward to implement. It
 does this in two ways:
 
-* It leverages the power of Auto Layout to automatically update the UI when making changes to views. 
+* It leverages the power of Auto Layout to automatically update the UI when making changes to views.
 
 * It forgoes some features of `UITableView`, such as view recycling, in order to achieve a much simpler and safer API.
 
@@ -55,15 +55,15 @@ We've found `AloeStackView` to be a useful piece of infrastructure and hope you 
 ## Features
 
 * Allows you to keep strong references to views and dynamically change their properties, while Auto Layout
-automatically keeps the UI up-to-date. 
+automatically keeps the UI up-to-date.
 
 * Allows views to be dynamically added, removed, hidden and shown, with optional animation.
 
 * Includes built-in support for customizable separators between views.
 
-* Provides an extensible API, allowing specialized features to be added without modifying `AloeStackView` itself.   
+* Provides an extensible API, allowing specialized features to be added without modifying `AloeStackView` itself.
 
-* Widely used and vetted in a highly-trafficked iOS app. 
+* Widely used and vetted in a highly-trafficked iOS app.
 
 * Small, easy-to-understand codebase (under 500 lines of code) with no external dependencies keeps binary size
 increase to a minimum and makes code contributions and debugging painless.
@@ -327,11 +327,11 @@ maintenance.
 screens that accept user input, implement forms, or are comprised of a heterogeneous set of views.
 
 However, it's also helpful to dig a bit deeper into the technical details of `AloeStackView`, as this can help develop a
-better understanding of appropriate use cases. 
+better understanding of appropriate use cases.
 
 #### More Details
 
-`AloeStackView` is a very useful tool to have in the toolbox. Its straightforward, flexible API allows you to build UI 
+`AloeStackView` is a very useful tool to have in the toolbox. Its straightforward, flexible API allows you to build UI
 quickly and easily.
 
 Unlike `UITableView` and `UICollectionView`, you can keep strong references to views in an `AloeStackView` and
@@ -344,7 +344,7 @@ feedback.
 
 `AloeStackView` has no `reloadData` method, or any way to notify it about changes to your views. This makes it less
 error-prone and easier to debug than a class like `UITableView`. For example, `AloeStackView` won't crash if not
-notified of changes to the underlying data of the views it manages. 
+notified of changes to the underlying data of the views it manages.
 
 Since `AloeStackView` uses `UIStackView` under the hood, it doesn't recycle views as you scroll. This eliminates
 common bugs caused by not recycling views correctly. You also don't need to independently maintain the state of
@@ -361,7 +361,7 @@ generally not appropriate for screens that contain many views of the same type, 
 `UITableView` or `UICollectionView` often perform better in those situations.
 
 While `AloeStackView` is not the only piece of infrastructure we use to build iOS UI at Airbnb, it has been valuable for
-us in many situations. We hope you find it useful too!  
+us in many situations. We hope you find it useful too!
 
 ## Installation
 
@@ -401,7 +401,7 @@ Daniel Crampton, Francisco Diaz, David He, Jeff Hodnett, Eric Horacek, Garrett L
 Jacky Lu, Noah Martin, Phil Nachum, Gonzalo Nuñez, Laura Skelton, Cal Stephens, and Ortal Yahdav
 
 In addition, open sourcing this project wouldn't have been possible without the help and support of Jordan Harband,
-Tyler Hedrick, Laura Skelton, and John Pottebaum.
+Tyler Hedrick, Michael Bachand, Laura Skelton, Dan Federman, and John Pottebaum.
 
 ## License
 
