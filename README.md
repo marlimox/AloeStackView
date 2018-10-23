@@ -2,7 +2,11 @@
 
 A simple class for laying out a collection of views with a convenient API, while leveraging the power of Auto Layout.
 
-[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) [![Build status](https://travis-ci.com/airbnb/AloeStackView.svg?branch=master)](https://travis-ci.com/airbnb/AloeStackView)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![Version](https://img.shields.io/cocoapods/v/AloeStackView.svg)](http://cocoadocs.org/docsets/AloeStackView)
+[![License](https://img.shields.io/cocoapods/l/AloeStackView.svg)](http://cocoadocs.org/docsets/AloeStackView)
+[![Platform](https://img.shields.io/cocoapods/p/AloeStackView.svg)](http://cocoadocs.org/docsets/AloeStackView)
+[![Build status](https://travis-ci.com/airbnb/AloeStackView.svg?branch=master)](https://travis-ci.com/airbnb/AloeStackView)
 
 #### Supports Swift 4.2
 
