@@ -3,3 +3,9 @@ osx_image: xcode10
 xcode_project: AloeStackView.xcodeproj
 xcode_scheme: AloeStackView
 xcode_destination: platform=iOS Simulator,OS=9.0,name=iPhone 6s
+before_script:
+    - bundle install
+    - brew outdated carthage || brew upgrade carthage
+script:
+    - bundle exec pod lib lint --verbose --fail-fast
+    - carthage build --verbose --no-skip-current
