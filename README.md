@@ -368,6 +368,9 @@ us in many situations. We hope you find it useful too!
 `AloeStackView` can be installed with [Carthage](https://github.com/Carthage/Carthage). Simply add
 `github "airbnb/AloeStackView"` to your Cartfile.
 
+`AloeStackView` can be installed with [CocoaPods](http://cocoapods.org). Simply add
+`pod 'AloeStackView'` to your Podfile.
+
 ## Contributions
 
 `AloeStackView` is feature complete for the use cases it was originally designed to address. However, UI
