@@ -8,8 +8,6 @@ A simple class for laying out a collection of views with a convenient API, while
 [![Platform](https://img.shields.io/cocoapods/p/AloeStackView.svg)](https://cocoapods.org/pods/AloeStackView)
 [![Build status](https://travis-ci.com/airbnb/AloeStackView.svg?branch=master)](https://travis-ci.com/airbnb/AloeStackView)
 
-#### Supports Swift 4.2
-
 ## Introduction
 
 `AloeStackView` is a class that allows a collection of views to be laid out in a vertical list. In a broad sense, it is similar
@@ -72,7 +70,7 @@ increase to a minimum and makes code contributions and debugging painless.
 
 * Deployment target iOS 9.0+
 * Xcode 10.0+
-* Swift 4.2+
+* Swift 4.0+
 
 ## Example App
 

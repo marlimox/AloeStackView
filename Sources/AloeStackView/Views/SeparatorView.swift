@@ -31,7 +31,11 @@ internal final class SeparatorView: UIView {
   // MARK: Internal
 
   internal override var intrinsicContentSize: CGSize {
+    #if swift(>=4.2)
     return CGSize(width: UIView.noIntrinsicMetric, height: height)
+    #else
+    return CGSize(width: UIViewNoIntrinsicMetric, height: height)
+    #endif
   }
 
   internal var color: UIColor {
