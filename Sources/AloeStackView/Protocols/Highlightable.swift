@@ -13,6 +13,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import UIKit
+
 /**
  * Indicates that a row in an `AloeStackView` should change its background color to a
  * highlighted color when a user is touching it.
@@ -28,13 +30,22 @@ public protocol Highlightable {
   ///
   /// The default implementation of this method always returns `true`.
   var isHighlightable: Bool { get }
-
+    
+  func highlightAction(isHighlighting: Bool)
 }
 
-extension Highlightable {
-
+extension Highlightable where Self: UIView {
+    
   public var isHighlightable: Bool {
-    get { return true }
+    return true
   }
-
+    
+  public func highlightAction(isHighlighting: Bool) {
+    guard let cell = superview as? StackViewCell else { return }
+    if isHighlighting {
+      cell.backgroundColor = cell.highlightRowBackgroundColor
+    } else {
+      cell.backgroundColor = cell.rowBackgroundColor
+    }
+  }
 }
