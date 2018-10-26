@@ -4,7 +4,7 @@ Keep your Pull Requests small. Small PRs are easier to reason about which makes 
 
 ### Issues before features
 
-If you want to add a feature, please file an [Issue](../../issues) first. An Issue gives us the opportunity to discuss the requirements and implications of a feature with you before you start writing code.
+If you want to add a feature, consider filing an [Issue](../../issues). An Issue can provide the opportunity to discuss the requirements and implications of a feature with you before you start writing code. This is not a hard requirement, however. Submitting a Pull Request to demonstrate an idea in code is also acceptable, it just carries more risk of change.
 
 ### Backwards compatibility
 
@@ -13,3 +13,9 @@ Respect the minimum deployment target. If you are adding code that uses new APIs
 ### Forwards compatibility
 
 Please do not write new code using deprecated APIs.
+
+### Maintainers
+
+AloeStackView is developed and maintained by Marli Oshlack (marli@oshlack.com), Fan Cox (fan.cox@airbnb.com), and Arthur Pang (arthur.pang@airbnb.com).
+
+Please feel free to tag @marlimox, @fancox, and @apang42 on PRs for code review.
