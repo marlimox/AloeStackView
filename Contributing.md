@@ -13,9 +13,3 @@ Respect the minimum deployment target. If you are adding code that uses new APIs
 ### Forwards compatibility
 
 Please do not write new code using deprecated APIs.
-
-### Maintainers
-
-AloeStackView is developed and maintained by Marli Oshlack (marli@oshlack.com), Fan Cox (fan.cox@airbnb.com), and Arthur Pang (arthur.pang@airbnb.com).
-
-Please feel free to tag @marlimox, @fancox, and @apang42 on PRs for code review.
