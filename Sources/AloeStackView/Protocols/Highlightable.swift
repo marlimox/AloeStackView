@@ -16,21 +16,22 @@
 import UIKit
 
 /**
- * Indicates that a row in an `AloeStackView` should change its background color to a
- * highlighted color when a user is touching it.
+ * Indicates that a row in an `AloeStackView` should be highlighted when it touches
  *
  * Rows that are added to an `AloeStackView` can conform to this protocol to have their
- * background color automatically change to a highlighted color when the user is pressing down on
+ * highlightAction(isHighlighting:) will be performed when the user is pressing down on
  * them.
  */
 public protocol Highlightable {
 
-  /// Checked when the user touches down on a row to determine whether the background color of the
-  /// row should be changed to a highlighted color.
+  /// If the user touches the row, the row should be highlighted.
   ///
   /// The default implementation of this method always returns `true`.
   var isHighlightable: Bool { get }
-    
+  
+  /// You can custom highlight the touch action of each row in the AloeStackView
+  ///
+  /// The default action is to change the background color of each row.
   func highlightAction(isHighlighting: Bool)
 }
 
