@@ -41,6 +41,13 @@ open class StackViewCell: UIView {
   }
 
   // MARK: Open
+    
+  open override var isHidden: Bool {
+    didSet {
+      guard isHidden != oldValue else { return }
+      separatorView.alpha = isHidden ? 0 : 1
+    }
+  }
 
   open var rowBackgroundColor = UIColor.clear {
     didSet {
