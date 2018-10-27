@@ -41,14 +41,7 @@ open class StackViewCell: UIView {
   }
 
   // MARK: Open
-    
-  open override var isHidden: Bool {
-    didSet {
-      guard isHidden != oldValue else { return }
-      separatorView.alpha = isHidden ? 0 : 1
-    }
-  }
-    
+
   open var rowHighlightColor = UIColor(red: 217 / 255, green: 217 / 255, blue: 217 / 255, alpha: 1)
 
   open var rowBackgroundColor = UIColor.clear {
