@@ -16,7 +16,7 @@
 import UIKit
 
 /**
- * Indicates that a row in an `AloeStackView` should be highlighted when it touches
+ * Indicates that a row in an `AloeStackView` should be highlighted when the user touches it.
  *
  * Rows that are added to an `AloeStackView` can conform to this protocol to have their
  * highlightAction(isHighlighting:) will be performed when the user is pressing down on
@@ -24,27 +24,28 @@ import UIKit
  */
 public protocol Highlightable {
 
-  /// If the user touches the row, the row should be highlighted.
+  /// Checked when the user touches down on a row to determine if the row should be highlighted.
   ///
   /// The default implementation of this method always returns `true`.
   var isHighlightable: Bool { get }
-  
-  /// You can custom highlight the touch action of each row in the AloeStackView
+
+  /// Called when the highlighted state of the row changes.
+  /// Override this method to provide custom highlighting behavior for the row.
   ///
-  /// The default action is to change the background color of each row.
-  func highlightAction(isHighlighting: Bool)
+  /// The default implementation of this method changes the background color of the row to the `rowHighlightColor`.
+  func setIsHighlighted(_ isHighlighted: Bool)
 }
 
 extension Highlightable where Self: UIView {
-    
+
   public var isHighlightable: Bool {
     return true
   }
-    
-  public func highlightAction(isHighlighting: Bool) {
+
+  public func setIsHighlighted(_ isHighlighted: Bool) {
     guard let cell = superview as? StackViewCell else { return }
-    if isHighlighting {
-      cell.backgroundColor = cell.highlightRowBackgroundColor
+    if isHighlighted {
+      cell.backgroundColor = cell.rowHighlightColor
     } else {
       cell.backgroundColor = cell.rowBackgroundColor
     }

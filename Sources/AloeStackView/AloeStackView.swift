@@ -240,8 +240,8 @@ open class AloeStackView: UIScrollView {
   /// The highlight background color of rows in the stack view.
   ///
   /// This highlight background color will be used for any new row that is added to the stack view.
-  /// The default color is UIColor(red: 242 / 255, green: 242 / 255, blue: 242 / 255, alpha: 1).
-  open var hightlightRowBackgroundColor = UIColor(red: 242 / 255, green: 242 / 255, blue: 242 / 255, alpha: 1)
+  /// The default color is #D9D9D9 (RGB 217, 217, 217).
+  open var rowHighlightColor = AloeStackView.defaultRowHighlightColor
 
   /// Sets the background color for the given row to the `UIColor` provided.
   open func setBackgroundColor(forRow row: UIView, color: UIColor) {
@@ -444,7 +444,7 @@ open class AloeStackView: UIScrollView {
     let cell = cellForRow(contentView)
 
     cell.rowBackgroundColor = rowBackgroundColor
-    cell.highlightRowBackgroundColor = hightlightRowBackgroundColor
+    cell.rowHighlightColor = rowHighlightColor
     cell.rowInset = rowInset
     cell.separatorColor = separatorColor
     cell.separatorHeight = separatorHeight
@@ -526,6 +526,7 @@ open class AloeStackView: UIScrollView {
     return stackView.arrangedSubviews[index - 1] as? StackViewCell
   }
 
+  private static let defaultRowHighlightColor: UIColor = UIColor(red: 217 / 255, green: 217 / 255, blue: 217 / 255, alpha: 1)
   private static let defaultSeparatorColor: UIColor = UITableView().separatorColor ?? .clear
   private static let defaultSeparatorInset: UIEdgeInsets = UITableView().separatorInset
 

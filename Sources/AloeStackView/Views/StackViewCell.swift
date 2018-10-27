@@ -49,7 +49,7 @@ open class StackViewCell: UIView {
     }
   }
     
-  open var highlightRowBackgroundColor = UIColor(red: 242 / 255, green: 242 / 255, blue: 242 / 255, alpha: 1)
+  open var rowHighlightColor = UIColor(red: 217 / 255, green: 217 / 255, blue: 217 / 255, alpha: 1)
 
   open var rowBackgroundColor = UIColor.clear {
     didSet {
@@ -92,7 +92,7 @@ open class StackViewCell: UIView {
     guard contentView.isUserInteractionEnabled else { return }
 
     if let contentView = contentView as? Highlightable, contentView.isHighlightable {
-      contentView.highlightAction(isHighlighting: true)
+      contentView.setIsHighlighted(true)
     }
   }
 
@@ -101,7 +101,7 @@ open class StackViewCell: UIView {
     guard contentView.isUserInteractionEnabled else { return }
 
     if let contentView = contentView as? Highlightable, contentView.isHighlightable {
-      contentView.highlightAction(isHighlighting: false)
+      contentView.setIsHighlighted(false)
     }
   }
 
@@ -110,7 +110,7 @@ open class StackViewCell: UIView {
     guard contentView.isUserInteractionEnabled else { return }
 
     if let contentView = contentView as? Highlightable, contentView.isHighlightable {
-      contentView.highlightAction(isHighlighting: false)
+      contentView.setIsHighlighted(false)
     }
   }
 
