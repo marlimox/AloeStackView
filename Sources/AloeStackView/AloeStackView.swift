@@ -237,10 +237,12 @@ open class AloeStackView: UIScrollView {
     guard let cell = row.superview as? StackViewCell, cell.isHidden != isHidden else { return }
 
     if animated {
-      UIView.animate(withDuration: 0.3) {
+      let state: State = isHidden ? .delete : .insert
+        let coordinator = AnimationCoordinator(target: cell, state: state, animations: {
         cell.isHidden = isHidden
         cell.layoutIfNeeded()
-      }
+      })
+      coordinator.startAnimation()
     } else {
       cell.isHidden = isHidden
     }
@@ -551,9 +553,10 @@ open class AloeStackView: UIScrollView {
     if animated {
       cell.alpha = 0
       layoutIfNeeded()
-      UIView.animate(withDuration: 0.3) {
+      let coordinator = AnimationCoordinator(target: cell, state: .insert, animations: {
         cell.alpha = 1
-      }
+      })
+      coordinator.startAnimation()
     }
   }
 
@@ -572,12 +575,10 @@ open class AloeStackView: UIScrollView {
     }
 
     if animated {
-      UIView.animate(
-        withDuration: 0.3,
-        animations: {
-          cell.isHidden = true
-        },
-        completion: completion)
+      let coordinator = AnimationCoordinator(target: cell, state: .delete, animations: {
+        cell.isHidden = true
+      }, completion: completion)
+      coordinator.startAnimation()
     } else {
       completion(true)
     }
