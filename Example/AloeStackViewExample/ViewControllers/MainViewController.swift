@@ -41,6 +41,8 @@ public class MainViewController: AloeStackViewController {
     setUpDescriptionRow()
     setUpSwitchRow()
     setUpHiddenRows()
+    setUpAnimatableDescRow()
+    setUpHiddenAnimatableRow()
     setUpExpandingRowView()
     setUpHorizontalRow()
     setUpPhotoRow()
@@ -89,6 +91,33 @@ public class MainViewController: AloeStackViewController {
 
     stackView.setInset(forRows: hiddenRows, inset: rowInset)
     stackView.setSeparatorInset(forRows: Array(hiddenRows.dropLast()), inset: separatorInset)
+  }
+
+  private func setUpAnimatableDescRow() {
+    let animatableRow = AnimatableDescRowView()
+    stackView.addRow(animatableRow)
+    stackView.setTapHandler(forRow: animatableRow) { [weak self] _ in
+      guard let `self` = self else { return }
+      animatableRow.isSelected = !animatableRow.isSelected
+      self.stackView.setRowHidden(self.animatableHiddenLabel, isHidden: !animatableRow.isSelected, animated: true)
+    }
+  }
+
+  private let animatableHiddenLabel = AnimatableRowLabel()
+
+  private func setUpHiddenAnimatableRow() {
+    animatableHiddenLabel.text = "Customizing Row Animation"
+
+    stackView.addRow(animatableHiddenLabel)
+    stackView.hideRow(animatableHiddenLabel)
+
+    let rowInset = UIEdgeInsets(
+      top: stackView.rowInset.top,
+      left: stackView.rowInset.left * 2,
+      bottom: stackView.rowInset.bottom,
+      right: stackView.rowInset.right)
+
+    stackView.setInset(forRow: animatableHiddenLabel, inset: rowInset)
   }
 
   private func setUpExpandingRowView() {
