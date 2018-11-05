@@ -23,6 +23,9 @@ open class AloeStackView: UIScrollView {
 
   // MARK: Lifecycle
 
+  /// Initialize an AloeStackView
+  ///
+  /// `axis` can be `.vertical` or `.horizontal`. `.vertical` is default value.
   public init(withAxis axis: NSLayoutConstraint.Axis = .vertical) {
     stackViewAxis = axis
     
