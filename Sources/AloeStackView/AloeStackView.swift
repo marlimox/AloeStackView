@@ -23,7 +23,9 @@ open class AloeStackView: UIScrollView {
 
   // MARK: Lifecycle
 
-  public init() {
+  public init(with axis: NSLayoutConstraint.Axis = .vertical) {
+    stackViewAxis = axis
+    
     super.init(frame: .zero)
     setUpViews()
     setUpConstraints()
@@ -263,9 +265,9 @@ open class AloeStackView: UIScrollView {
   ///
   /// The default inset is 15pt on each side and 12pt on the top and bottom.
   open var rowInset = UIEdgeInsets(
-    top: 12,
+    top: 0,
     left: AloeStackView.defaultSeparatorInset.left,
-    bottom: 12,
+    bottom: 0,
     // Intentional, to match the default spacing of UITableView's cell separators but balanced on
     // each side.
     right: AloeStackView.defaultSeparatorInset.left)
@@ -396,7 +398,7 @@ open class AloeStackView: UIScrollView {
   /// properties of the cell, override `configureCell(_:)` and perform the customization there,
   /// rather than on the cell returned from this method.
   open func cellForRow(_ row: UIView) -> StackViewCell {
-    return StackViewCell(contentView: row)
+    return StackViewCell(contentView: row, axis: stackViewAxis)
   }
 
   /// Allows subclasses to configure the properties of the given `StackViewCell`.
@@ -422,7 +424,7 @@ open class AloeStackView: UIScrollView {
 
   private func setUpStackView() {
     stackView.translatesAutoresizingMaskIntoConstraints = false
-    stackView.axis = .vertical
+    stackView.axis = stackViewAxis
     addSubview(stackView)
   }
 
@@ -431,13 +433,23 @@ open class AloeStackView: UIScrollView {
   }
 
   private func setUpStackViewConstraints() {
+    
+    var topAnchorConstraint = topAnchor
+    var bottomAnchorConstraint = bottomAnchor
+    
+    if !stackViewAxis.isVertical, #available(iOS 11.0, *) {
+        topAnchorConstraint = safeAreaLayoutGuide.topAnchor
+        bottomAnchorConstraint = safeAreaLayoutGuide.bottomAnchor
+    }
+    
     NSLayoutConstraint.activate([
-      stackView.topAnchor.constraint(equalTo: topAnchor),
-      stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
+      stackView.topAnchor.constraint(equalTo: topAnchorConstraint),
+      stackView.bottomAnchor.constraint(equalTo: bottomAnchorConstraint),
       stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-      stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-      stackView.widthAnchor.constraint(equalTo: widthAnchor)
+      stackView.trailingAnchor.constraint(equalTo: trailingAnchor)
     ])
+
+    stackView.widthAnchor.constraint(equalTo: widthAnchor).isActive = stackViewAxis.isVertical
   }
 
   private func createCell(withContentView contentView: UIView) -> StackViewCell {
@@ -529,5 +541,5 @@ open class AloeStackView: UIScrollView {
   private static let defaultRowHighlightColor: UIColor = UIColor(red: 217 / 255, green: 217 / 255, blue: 217 / 255, alpha: 1)
   private static let defaultSeparatorColor: UIColor = UITableView().separatorColor ?? .clear
   private static let defaultSeparatorInset: UIEdgeInsets = UITableView().separatorInset
-
+  private let stackViewAxis: NSLayoutConstraint.Axis
 }

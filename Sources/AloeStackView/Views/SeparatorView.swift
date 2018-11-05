@@ -19,7 +19,8 @@ internal final class SeparatorView: UIView {
 
   // MARK: Lifecycle
 
-  internal init() {
+  internal init(axis: NSLayoutConstraint.Axis) {
+    self.stackViewAxes = axis
     super.init(frame: .zero)
     translatesAutoresizingMaskIntoConstraints = false
   }
@@ -29,12 +30,26 @@ internal final class SeparatorView: UIView {
   }
 
   // MARK: Internal
+    
+  private let stackViewAxes: NSLayoutConstraint.Axis
 
   internal override var intrinsicContentSize: CGSize {
+    return stackViewAxes.isVertical ? verticalIntrinsicContentSize : horizontalIntrinsicContentSize
+  }
+    
+  private var verticalIntrinsicContentSize: CGSize {
     #if swift(>=4.2)
     return CGSize(width: UIView.noIntrinsicMetric, height: height)
     #else
     return CGSize(width: UIViewNoIntrinsicMetric, height: height)
+    #endif
+  }
+    
+  private var horizontalIntrinsicContentSize: CGSize {
+    #if swift(>=4.2)
+    return CGSize(width: width, height: UIView.noIntrinsicMetric)
+    #else
+    return CGSize(width: width, height: UIViewNoIntrinsicMetric)
     #endif
   }
 
@@ -44,6 +59,10 @@ internal final class SeparatorView: UIView {
   }
 
   internal var height: CGFloat = 1 {
+    didSet { invalidateIntrinsicContentSize() }
+  }
+    
+  internal var width: CGFloat = 1 {
     didSet { invalidateIntrinsicContentSize() }
   }
 

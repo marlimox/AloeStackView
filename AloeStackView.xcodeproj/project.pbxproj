@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7ABE6564219060A40067DC64 /* NSLayoutConstraintAxisExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABE6563219060A40067DC64 /* NSLayoutConstraintAxisExtension.swift */; };
 		A74F6EDB216D5CB50054AA18 /* AloeStackView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A74F6ED1216D5CB50054AA18 /* AloeStackView.framework */; };
 		A74F6EF6216D5EFF0054AA18 /* AloeStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74F6EED216D5EFE0054AA18 /* AloeStackView.swift */; };
 		A74F6EF7216D5EFF0054AA18 /* AloeStackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74F6EEE216D5EFE0054AA18 /* AloeStackViewController.swift */; };
@@ -29,6 +30,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7ABE6563219060A40067DC64 /* NSLayoutConstraintAxisExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSLayoutConstraintAxisExtension.swift; sourceTree = "<group>"; };
 		A74F6ED1216D5CB50054AA18 /* AloeStackView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AloeStackView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A74F6EDA216D5CB50054AA18 /* AloeStackViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AloeStackViewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A74F6EED216D5EFE0054AA18 /* AloeStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AloeStackView.swift; sourceTree = "<group>"; };
@@ -64,6 +66,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7ABE6565219061700067DC64 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				7ABE6563219060A40067DC64 /* NSLayoutConstraintAxisExtension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		A74F6EC7216D5CB40054AA18 = {
 			isa = PBXGroup;
 			children = (
@@ -99,6 +109,7 @@
 			children = (
 				A74F6EED216D5EFE0054AA18 /* AloeStackView.swift */,
 				A74F6EEE216D5EFE0054AA18 /* AloeStackViewController.swift */,
+				7ABE6565219061700067DC64 /* Extensions */,
 				A74F6EEF216D5EFE0054AA18 /* Views */,
 				A74F6EF2216D5EFE0054AA18 /* Protocols */,
 			);
@@ -253,6 +264,7 @@
 				A74F6EF9216D5EFF0054AA18 /* StackViewCell.swift in Sources */,
 				A74F6EFC216D5EFF0054AA18 /* Highlightable.swift in Sources */,
 				A74F6EFB216D5EFF0054AA18 /* SeparatorHiding.swift in Sources */,
+				7ABE6564219060A40067DC64 /* NSLayoutConstraintAxisExtension.swift in Sources */,
 				A74F6EFA216D5EFF0054AA18 /* Tappable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
