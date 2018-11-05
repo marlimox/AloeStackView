@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7ABE6567219065120067DC64 /* HorizontalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABE6566219065120067DC64 /* HorizontalViewController.swift */; };
 		A7497A9121746D9700BB692A /* AloeStackView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7497A9021746D9700BB692A /* AloeStackView.framework */; };
 		A7497A932174725700BB692A /* SwitchRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7497A922174725700BB692A /* SwitchRowView.swift */; };
 		A7497A9721747DD600BB692A /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7497A9621747DD600BB692A /* PhotoViewController.swift */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7ABE6566219065120067DC64 /* HorizontalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalViewController.swift; sourceTree = "<group>"; };
 		A7420FAB21715DF500F2A343 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A7497A9021746D9700BB692A /* AloeStackView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AloeStackView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7497A922174725700BB692A /* SwitchRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchRowView.swift; sourceTree = "<group>"; };
@@ -47,6 +49,7 @@
 			children = (
 				A74F70BA217155FC0054AA18 /* MainViewController.swift */,
 				A7497A9621747DD600BB692A /* PhotoViewController.swift */,
+				7ABE6566219065120067DC64 /* HorizontalViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -204,6 +207,7 @@
 				A7497A9721747DD600BB692A /* PhotoViewController.swift in Sources */,
 				A74F70B9217155FC0054AA18 /* AppDelegate.swift in Sources */,
 				A7497A9921755AD100BB692A /* ExpandingRowView.swift in Sources */,
+				7ABE6567219065120067DC64 /* HorizontalViewController.swift in Sources */,
 				A7497A932174725700BB692A /* SwitchRowView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

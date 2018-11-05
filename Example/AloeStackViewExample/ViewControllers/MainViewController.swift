@@ -42,6 +42,7 @@ public class MainViewController: AloeStackViewController {
     setUpSwitchRow()
     setUpHiddenRows()
     setUpExpandingRowView()
+    setUpShowHorizontalStackRowView()
     setUpPhotoRow()
   }
 
@@ -93,6 +94,20 @@ public class MainViewController: AloeStackViewController {
   private func setUpExpandingRowView() {
     let expandingRow = ExpandingRowView()
     stackView.addRow(expandingRow)
+  }
+
+  private func setUpShowHorizontalStackRowView() {
+    let label = UILabel()
+    label.font = UIFont.preferredFont(forTextStyle: .body)
+    label.numberOfLines = 0
+    label.text = "Tap to open an horizontal AloeStackView"
+    label.isUserInteractionEnabled = true
+    stackView.addRow(label)
+    stackView.setTapHandler(forRow: label) { [weak self] _ in
+        guard let self = self else { return }
+        let vc = HorizontalViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
   }
 
   private func setUpPhotoRow() {

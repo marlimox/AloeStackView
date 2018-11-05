@@ -23,7 +23,7 @@ open class AloeStackView: UIScrollView {
 
   // MARK: Lifecycle
 
-  public init(with axis: NSLayoutConstraint.Axis = .vertical) {
+  public init(withAxis axis: NSLayoutConstraint.Axis = .vertical) {
     stackViewAxis = axis
     
     super.init(frame: .zero)
@@ -265,9 +265,9 @@ open class AloeStackView: UIScrollView {
   ///
   /// The default inset is 15pt on each side and 12pt on the top and bottom.
   open var rowInset = UIEdgeInsets(
-    top: 0,
+    top: 12,
     left: AloeStackView.defaultSeparatorInset.left,
-    bottom: 0,
+    bottom: 12,
     // Intentional, to match the default spacing of UITableView's cell separators but balanced on
     // each side.
     right: AloeStackView.defaultSeparatorInset.left)
