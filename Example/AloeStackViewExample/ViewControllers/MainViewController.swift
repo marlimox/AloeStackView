@@ -35,6 +35,13 @@ public class MainViewController: AloeStackViewController {
 
   private func setUpStackView() {
     stackView.automaticallyHidesLastSeparator = true
+    stackView.pullRefreshHandler = { [weak self] in
+        guard let self = self else { return }
+        //TODO: Do something here
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            self.stackView.endPullRefresh()
+        }
+    }
   }
 
   private func setUpRows() {
