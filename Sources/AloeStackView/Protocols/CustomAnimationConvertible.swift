@@ -19,9 +19,9 @@
  * Rows that are added to an `AloeStackView` can conform to this protocol to have their
  * You can freely change the state animation of each contentView when a row is inserted or deleted.
  */
-public protocol CustomAnimationConvertible {
+public protocol CustomAnimating {
 
   /// Invoked when animated is true when inserting or deleting.
-  func willAnimation(with coordinator: AnimationCoordinator)
+  func willAnimate(with coordinator: AnimationCoordinator)
 
 }

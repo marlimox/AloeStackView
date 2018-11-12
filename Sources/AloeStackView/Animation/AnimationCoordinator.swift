@@ -30,7 +30,7 @@ public class AnimationCoordinator {
   }
 
   internal func startAnimation() {
-    (target.contentView as? CustomAnimationConvertible)?.willAnimation(with: self)
+    (target.contentView as? CustomAnimating)?.willAnimate(with: self)
     UIView.animate(withDuration: AnimationCoordinator.defaultAnimationDuration, animations: {
       self.animations()
       self.alongsideAnimation?()
