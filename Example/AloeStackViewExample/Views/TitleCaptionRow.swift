@@ -15,57 +15,57 @@
 
 import UIKit
 
-public class AnimatableDescRowView: UIView {
+public class TitleCaptionRow: UIStackView {
 
   // MARK: Lifecycle
 
-  public init() {
+  public init(title: String, captionText: String? = nil) {
+    self.title = title
+    self.captionText = captionText
     super.init(frame: .zero)
+    setUpSelf()
     setUpViews()
-    setUpConstraints()
   }
 
   public required init(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 
-  // MARK: Public
-
-  public var isSelected: Bool = false
-
   // MARK: Private
-    
+
+  private let title: String
+  private let captionText: String?
+
   private let titleLabel = UILabel()
   private let captionLabel = UILabel()
-    
+
+  private func setUpSelf() {
+    translatesAutoresizingMaskIntoConstraints = false
+    axis = .vertical
+    spacing = 4
+  }
+
   private func setUpViews() {
     setUpTitleLabel()
     setUpCaptionLabel()
   }
-    
+
   private func setUpTitleLabel() {
-    titleLabel.text = "Customizing Row Animation"
+    titleLabel.text = title
+    titleLabel.numberOfLines = 0
     titleLabel.translatesAutoresizingMaskIntoConstraints = false
     titleLabel.font = UIFont.preferredFont(forTextStyle: .body)
-    addSubview(titleLabel)
+    addArrangedSubview(titleLabel)
   }
-    
+
   private func setUpCaptionLabel() {
+    guard let captionText = captionText else { return }
+    captionLabel.text = captionText
+    captionLabel.numberOfLines = 0
     captionLabel.translatesAutoresizingMaskIntoConstraints = false
     captionLabel.font = UIFont.preferredFont(forTextStyle: .caption2)
     captionLabel.textColor = .blue
-    captionLabel.text = "(Try tapping on the Row!)"
-    addSubview(captionLabel)
-  }
-    
-  private func setUpConstraints() {
-    NSLayoutConstraint.activate([
-      titleLabel.topAnchor.constraint(equalTo: topAnchor),
-      titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
-      captionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
-      captionLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
-      captionLabel.bottomAnchor.constraint(equalTo: bottomAnchor)
-    ])
+    addArrangedSubview(captionLabel)
   }
 
 }

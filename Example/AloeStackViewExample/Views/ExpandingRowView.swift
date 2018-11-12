@@ -16,13 +16,12 @@
 import AloeStackView
 import UIKit
 
-public class ExpandingRowView: UIStackView, Tappable, Highlightable {
+public class ExpandingRowView: TitleCaptionRow, Tappable, Highlightable {
 
   // MARK: Lifecycle
 
   public init() {
-    super.init(frame: .zero)
-    translatesAutoresizingMaskIntoConstraints = false
+    super.init(title: "Dynamically change row content", captionText: "(Tap on this row to add more content!)\n")
     setUpViews()
   }
 
@@ -42,36 +41,12 @@ public class ExpandingRowView: UIStackView, Tappable, Highlightable {
 
   // MARK: Private
 
-  private let titleLabel = UILabel()
-  private let showMoreLabel = UILabel()
   private let textLabel = UILabel()
 
   private var nextLine = 1
 
   private func setUpViews() {
-    setUpSelf()
-    setUpTitleLabel()
-    setUpShowMoreLabel()
     setUpTextLabel()
-  }
-
-  private func setUpSelf() {
-    axis = .vertical
-    spacing = 4
-  }
-
-  private func setUpTitleLabel() {
-    titleLabel.text = "Dynamically change row content"
-    titleLabel.font = UIFont.preferredFont(forTextStyle: .body)
-    addArrangedSubview(titleLabel)
-  }
-
-  private func setUpShowMoreLabel() {
-    showMoreLabel.numberOfLines = 0
-    showMoreLabel.text = "(Tap on this row to add more content!)\n"
-    showMoreLabel.font = UIFont.preferredFont(forTextStyle: .caption2)
-    showMoreLabel.textColor = .blue
-    addArrangedSubview(showMoreLabel)
   }
 
   private func setUpTextLabel() {

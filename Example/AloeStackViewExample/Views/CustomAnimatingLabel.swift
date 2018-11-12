@@ -16,9 +16,9 @@
 import UIKit
 import AloeStackView
 
-public class AnimatableRowLabel: UILabel, CustomAnimationConvertible {
+public class CustomAnimatingLabel: UILabel, CustomAnimating {
 
-  public func willAnimation(with coordinator: AnimationCoordinator) {
+  public func willAnimate(with coordinator: AnimationCoordinator) {
     let isInsertState = coordinator.state == .insert
     transform = isInsertState ? CGAffineTransform(translationX: -100, y: 0) : .identity
     alpha = isInsertState ? 0 : 1
