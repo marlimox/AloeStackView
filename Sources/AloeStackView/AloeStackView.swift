@@ -238,7 +238,7 @@ open class AloeStackView: UIScrollView {
 
     if animated {
       let state: State = isHidden ? .delete : .insert
-        let coordinator = AnimationCoordinator(target: cell, state: state, animations: {
+      let coordinator = AnimationCoordinator(target: cell, state: state, animations: {
         cell.isHidden = isHidden
         cell.layoutIfNeeded()
       })
