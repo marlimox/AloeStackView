@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4A67EB2121868D2C00D134F7 /* CustomAnimationConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A67EB2021868D2C00D134F7 /* CustomAnimationConvertible.swift */; };
+		4A67EB2121868D2C00D134F7 /* CustomAnimating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A67EB2021868D2C00D134F7 /* CustomAnimating.swift */; };
 		4A67EB262186A94F00D134F7 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A67EB252186A94F00D134F7 /* State.swift */; };
 		4A67EB282186AB0400D134F7 /* AnimationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A67EB272186AB0400D134F7 /* AnimationCoordinator.swift */; };
 		A74F6EDB216D5CB50054AA18 /* AloeStackView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A74F6ED1216D5CB50054AA18 /* AloeStackView.framework */; };
@@ -32,7 +32,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		4A67EB2021868D2C00D134F7 /* CustomAnimationConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnimationConvertible.swift; sourceTree = "<group>"; };
+		4A67EB2021868D2C00D134F7 /* CustomAnimating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnimating.swift; sourceTree = "<group>"; };
 		4A67EB252186A94F00D134F7 /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
 		4A67EB272186AB0400D134F7 /* AnimationCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationCoordinator.swift; sourceTree = "<group>"; };
 		A74F6ED1216D5CB50054AA18 /* AloeStackView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AloeStackView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -136,7 +136,7 @@
 				A74F6EF3216D5EFE0054AA18 /* Tappable.swift */,
 				A74F6EF4216D5EFE0054AA18 /* SeparatorHiding.swift */,
 				A74F6EF5216D5EFE0054AA18 /* Highlightable.swift */,
-				4A67EB2021868D2C00D134F7 /* CustomAnimationConvertible.swift */,
+				4A67EB2021868D2C00D134F7 /* CustomAnimating.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -266,7 +266,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A74F6EF8216D5EFF0054AA18 /* SeparatorView.swift in Sources */,
-				4A67EB2121868D2C00D134F7 /* CustomAnimationConvertible.swift in Sources */,
+				4A67EB2121868D2C00D134F7 /* CustomAnimating.swift in Sources */,
 				4A67EB282186AB0400D134F7 /* AnimationCoordinator.swift in Sources */,
 				A74F6EF7216D5EFF0054AA18 /* AloeStackViewController.swift in Sources */,
 				4A67EB262186A94F00D134F7 /* State.swift in Sources */,

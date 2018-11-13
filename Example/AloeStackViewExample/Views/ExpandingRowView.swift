@@ -16,12 +16,12 @@
 import AloeStackView
 import UIKit
 
-public class ExpandingRowView: TitleCaptionRow, Tappable, Highlightable {
+public class ExpandingRowView: TitleCaptionRowView, Tappable, Highlightable {
 
   // MARK: Lifecycle
 
   public init() {
-    super.init(title: "Dynamically change row content", captionText: "(Tap on this row to add more content!)\n")
+    super.init(titleText: "Dynamically change row content", captionText: "(Tap on this row to add more content!)\n")
     setUpViews()
   }
 

@@ -15,15 +15,14 @@
 
 import UIKit
 
-public class TitleCaptionRow: UIStackView {
+public class TitleCaptionRowView: UIStackView {
 
   // MARK: Lifecycle
 
-  public init(title: String, captionText: String? = nil) {
-    self.title = title
-    self.captionText = captionText
+  public init(titleText: String, captionText: String? = nil) {
     super.init(frame: .zero)
-    setUpSelf()
+    titleLabel.text = titleText
+    captionLabel.text = captionText
     setUpViews()
   }
 
@@ -32,9 +31,6 @@ public class TitleCaptionRow: UIStackView {
   }
 
   // MARK: Private
-
-  private let title: String
-  private let captionText: String?
 
   private let titleLabel = UILabel()
   private let captionLabel = UILabel()
@@ -46,12 +42,12 @@ public class TitleCaptionRow: UIStackView {
   }
 
   private func setUpViews() {
+    setUpSelf()
     setUpTitleLabel()
     setUpCaptionLabel()
   }
 
   private func setUpTitleLabel() {
-    titleLabel.text = title
     titleLabel.numberOfLines = 0
     titleLabel.translatesAutoresizingMaskIntoConstraints = false
     titleLabel.font = UIFont.preferredFont(forTextStyle: .body)
@@ -59,8 +55,7 @@ public class TitleCaptionRow: UIStackView {
   }
 
   private func setUpCaptionLabel() {
-    guard let captionText = captionText else { return }
-    captionLabel.text = captionText
+    guard captionLabel.text != nil else { return }
     captionLabel.numberOfLines = 0
     captionLabel.translatesAutoresizingMaskIntoConstraints = false
     captionLabel.font = UIFont.preferredFont(forTextStyle: .caption2)

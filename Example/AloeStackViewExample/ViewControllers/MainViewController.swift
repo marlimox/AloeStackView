@@ -41,15 +41,15 @@ public class MainViewController: AloeStackViewController {
     setUpDescriptionRow()
     setUpSwitchRow()
     setUpHiddenRows()
-    setUpCustomAnimatingDescRow()
-    setUpHiddenAnimatableRow()
+    setUpCustomAnimatingDescriptionRow()
+    setUpCustomAnimatingRow()
     setUpExpandingRowView()
     setUpHorizontalRow()
     setUpPhotoRow()
   }
 
   private func setUpDescriptionRow() {
-    let descriptionRow = TitleCaptionRow(title: "This simple app shows some ways you can use AloeStackView to lay out a screen in your app.")
+    let descriptionRow = TitleCaptionRowView(titleText: "This simple app shows some ways you can use AloeStackView to lay out a screen in your app.")
     stackView.addRow(descriptionRow)
   }
 
@@ -90,23 +90,23 @@ public class MainViewController: AloeStackViewController {
     stackView.setSeparatorInset(forRows: Array(hiddenRows.dropLast()), inset: separatorInset)
   }
 
-  private func setUpCustomAnimatingDescRow() {
-    let animatableRow = TitleCaptionRow(title: "Customizing Row Animation", captionText: "(Try tapping on the Row!)")
+  private func setUpCustomAnimatingDescriptionRow() {
+    let animatableRow = TitleCaptionRowView(titleText: "Customizing Row Animation", captionText: "(Try tapping on the Row!)")
     stackView.addRow(animatableRow)
     stackView.setTapHandler(forRow: animatableRow) { [weak self] _ in
       guard let `self` = self else { return }
-        let isHidden = self.stackView.isRowHidden(self.animatableHiddenLabel)
-        self.stackView.setRowHidden(self.animatableHiddenLabel, isHidden: !isHidden, animated: true)
+      let isHidden = self.stackView.isRowHidden(self.customAnimatingLabel)
+      self.stackView.setRowHidden(self.customAnimatingLabel, isHidden: !isHidden, animated: true)
     }
   }
 
-  private let animatableHiddenLabel = CustomAnimatingLabel()
+  private let customAnimatingLabel = CustomAnimatingLabel()
 
-  private func setUpHiddenAnimatableRow() {
-    animatableHiddenLabel.text = "Customizing Row Animation"
+  private func setUpCustomAnimatingRow() {
+    customAnimatingLabel.text = "Customizing Row Animation"
 
-    stackView.addRow(animatableHiddenLabel)
-    stackView.hideRow(animatableHiddenLabel)
+    stackView.addRow(customAnimatingLabel)
+    stackView.hideRow(customAnimatingLabel)
 
     let rowInset = UIEdgeInsets(
       top: stackView.rowInset.top,
@@ -114,7 +114,7 @@ public class MainViewController: AloeStackViewController {
       bottom: stackView.rowInset.bottom,
       right: stackView.rowInset.right)
 
-    stackView.setInset(forRow: animatableHiddenLabel, inset: rowInset)
+    stackView.setInset(forRow: customAnimatingLabel, inset: rowInset)
   }
 
   private func setUpExpandingRowView() {
@@ -194,7 +194,7 @@ public class MainViewController: AloeStackViewController {
   }
 
   private func setUpPhotoRow() {
-    let row = TitleCaptionRow(title: "Handle user interaction", captionText: "(Try tapping on the photo!)")
+    let row = TitleCaptionRowView(titleText: "Handle user interaction", captionText: "(Try tapping on the photo!)")
     stackView.addRow(row)
     stackView.hideSeparator(forRow: row)
 
