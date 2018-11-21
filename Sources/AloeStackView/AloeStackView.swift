@@ -406,6 +406,23 @@ open class AloeStackView: UIScrollView {
   ///
   /// The default implementation of this method does nothing.
   open func configureCell(_ cell: StackViewCell) { }
+    
+  /// Setup view for vertical recizing StackView by content height
+  ///
+  /// - Parameter isOn: Turn on autoresize
+  open func setDynamicHeight(_ isOn: Bool) {
+    if isOn {
+      translatesAutoresizingMaskIntoConstraints = false
+      NSLayoutConstraint.activate([
+        stackView.heightAnchor.constraint(equalTo: heightAnchor)
+      ])
+    } else {
+      translatesAutoresizingMaskIntoConstraints = true
+      NSLayoutConstraint.deactivate([
+        stackView.heightAnchor.constraint(equalTo: heightAnchor)
+      ])
+    }
+  }
 
   // MARK: - Private
 
