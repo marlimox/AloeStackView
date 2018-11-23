@@ -10,7 +10,7 @@ A simple class for laying out a collection of views with a convenient API, while
 
 ## Introduction
 
-`AloeStackView` is a class that allows a collection of views to be laid out in a vertical list. In a broad sense, it is similar
+`AloeStackView` is a class that allows a collection of views to be laid out in a vertical (or horizontal) list. In a broad sense, it is similar
 to `UITableView`, however its implementation is quite different and it makes a different set of trade-offs.
 
 We first started using `AloeStackView` at Airbnb in our iOS app in 2016. We have since used it to implement nearly
@@ -93,7 +93,10 @@ You can create an instance of `AloeStackView` quite easily in your code:
 ```swift
 import AloeStackView
 
-let stackView = AloeStackView()
+let stackView = AloeStackView() //Defaults to vertical layout
+
+// Or specify a horizontal layout:
+let stackView = AloeStackView(withAxis: .horizontal)
 ```
 
 `AloeStackView` is a `UIView` (specifically a `UIScrollView`), and thus can be used in the same way as any other
@@ -110,6 +113,8 @@ public class MyViewController: AloeStackViewController {
   public override func viewDidLoad() {
     super.viewDidLoad()
     stackView.addRow(...)
+    
+    //stackView.axis = .horizontal //Uncomment to use horizontal layout
   }
 
 }
