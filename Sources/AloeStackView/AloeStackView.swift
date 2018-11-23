@@ -23,7 +23,8 @@ open class AloeStackView: UIScrollView {
 
   // MARK: Lifecycle
 
-  public init() {
+  public init(withAxis axis: NSLayoutConstraint.Axis = .vertical) {
+    self.axis = axis
     super.init(frame: .zero)
     setUpViews()
     setUpConstraints()
@@ -34,6 +35,17 @@ open class AloeStackView: UIScrollView {
   }
 
   // MARK: - Public
+    
+  // MARK: Axis for stackview
+  public var axis: NSLayoutConstraint.Axis {
+    didSet {
+      setConstraintsForAxis()
+      stackView.axis = axis
+      for case let cell as StackViewCell in stackView.arrangedSubviews {
+        cell.axis = axis
+      }
+    }
+  }
 
   // MARK: Adding and Removing Rows
 
@@ -296,10 +308,10 @@ open class AloeStackView: UIScrollView {
   /// The height of separators in the stack view.
   ///
   /// The default height is 1px.
-  open var separatorHeight: CGFloat = 1 / UIScreen.main.scale {
+  open var separatorThickness: CGFloat = 1 / UIScreen.main.scale {
     didSet {
-      for cell in stackView.arrangedSubviews {
-        (cell as? StackViewCell)?.separatorHeight = separatorHeight
+      for case let cell as StackViewCell in stackView.arrangedSubviews {
+        cell.separatorThickness = separatorThickness
       }
     }
   }
@@ -422,22 +434,39 @@ open class AloeStackView: UIScrollView {
 
   private func setUpStackView() {
     stackView.translatesAutoresizingMaskIntoConstraints = false
-    stackView.axis = .vertical
+    stackView.axis = axis
     addSubview(stackView)
   }
 
   private func setUpConstraints() {
     setUpStackViewConstraints()
+    setConstraintsForAxis()
   }
 
+  var heightConstraint: NSLayoutConstraint?
+  var widthConstraint: NSLayoutConstraint?
+  
   private func setUpStackViewConstraints() {
     NSLayoutConstraint.activate([
-      stackView.topAnchor.constraint(equalTo: topAnchor),
-      stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
-      stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-      stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-      stackView.widthAnchor.constraint(equalTo: widthAnchor)
-    ])
+        stackView.topAnchor.constraint(equalTo: topAnchor),
+        stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
+        stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+        stackView.trailingAnchor.constraint(equalTo: trailingAnchor)
+        ])
+    
+    heightConstraint = stackView.heightAnchor.constraint(equalTo: heightAnchor)
+    widthConstraint = stackView.widthAnchor.constraint(equalTo: widthAnchor)
+  }
+  
+  private func setConstraintsForAxis() {
+    switch axis {
+    case .horizontal:
+      heightConstraint?.isActive = true
+      widthConstraint?.isActive = false
+    case .vertical:
+      heightConstraint?.isActive = false
+      widthConstraint?.isActive = true
+    }
   }
 
   private func createCell(withContentView contentView: UIView) -> StackViewCell {
@@ -447,9 +476,10 @@ open class AloeStackView: UIScrollView {
     cell.rowHighlightColor = rowHighlightColor
     cell.rowInset = rowInset
     cell.separatorColor = separatorColor
-    cell.separatorHeight = separatorHeight
+    cell.separatorThickness = separatorThickness
     cell.separatorInset = separatorInset
     cell.shouldHideSeparator = hidesSeparatorsByDefault
+    cell.axis = axis
 
     configureCell(cell)
 

@@ -67,9 +67,9 @@ open class StackViewCell: UIView {
     set { separatorView.color = newValue }
   }
 
-  open var separatorHeight: CGFloat {
-    get { return separatorView.height }
-    set { separatorView.height = newValue }
+  open var separatorThickness: CGFloat {
+    get { return separatorView.thickness }
+    set { separatorView.thickness = newValue }
   }
 
   open var separatorInset: UIEdgeInsets = .zero {
@@ -127,12 +127,16 @@ open class StackViewCell: UIView {
   internal var shouldHideSeparator = false
 
   // MARK: Private
+    
+  internal var axis: NSLayoutConstraint.Axis = .vertical {
+    didSet {
+      setConstraintsForAxis()
+      separatorView.axis = axis
+    }
+  }
 
   private let separatorView = SeparatorView()
   private let tapGestureRecognizer = UITapGestureRecognizer()
-
-  private var separatorLeadingConstraint: NSLayoutConstraint?
-  private var separatorTrailingConstraint: NSLayoutConstraint?
 
   private func setUpViews() {
     setUpSelf()
@@ -150,38 +154,89 @@ open class StackViewCell: UIView {
   }
 
   private func setUpSeparatorView() {
+    separatorView.axis = axis
     addSubview(separatorView)
   }
 
   private func setUpConstraints() {
     setUpContentViewConstraints()
     setUpSeparatorViewConstraints()
+    setConstraintsForAxis()
   }
 
+  private var contentTopConstraint: NSLayoutConstraint?
+  private var contentBottomConstraint: NSLayoutConstraint?
+  private var contentBottomConstraintReducedPriority: NSLayoutConstraint?
+  private var contentLeadingConstraint: NSLayoutConstraint?
+  private var contentTrailingConstraint: NSLayoutConstraint?
+  private var contentTrailingConstraintReducedPriority: NSLayoutConstraint?
+  
   private func setUpContentViewConstraints() {
-    let bottomConstraint = contentView.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor)
-    bottomConstraint.priority = UILayoutPriority(rawValue: UILayoutPriority.required.rawValue - 1)
+    contentTopConstraint = contentView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor)
+    contentLeadingConstraint = contentView.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor)
 
+    //For use in vertical axis
+    contentTrailingConstraint = contentView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor)
+    contentBottomConstraintReducedPriority = contentView.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor)
+    contentBottomConstraintReducedPriority?.priority = UILayoutPriority(rawValue: UILayoutPriority.required.rawValue - 1)
+    
+    //For use in horizontal axis
+    contentBottomConstraint = contentView.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor)
+    contentTrailingConstraintReducedPriority = contentView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor)
+    contentTrailingConstraintReducedPriority?.priority = UILayoutPriority(rawValue: UILayoutPriority.required.rawValue - 1)
+    
     NSLayoutConstraint.activate([
-      contentView.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
-      contentView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
-      contentView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor),
-      bottomConstraint
-    ])
+      contentLeadingConstraint,
+      contentTrailingConstraint,
+      contentTopConstraint,
+      contentBottomConstraint
+      ].compactMap{$0})
   }
-
+  
+  private var separatorTopConstraint: NSLayoutConstraint?
+  private var separatorBottomConstraint: NSLayoutConstraint?
+  private var separatorLeadingConstraint: NSLayoutConstraint?
+  private var separatorTrailingConstraint: NSLayoutConstraint?
+  
   private func setUpSeparatorViewConstraints() {
-    let leadingConstraint = separatorView.leadingAnchor.constraint(equalTo: leadingAnchor)
-    let trailingConstraint = separatorView.trailingAnchor.constraint(equalTo: trailingAnchor)
-
-    NSLayoutConstraint.activate([
-      separatorView.bottomAnchor.constraint(equalTo: bottomAnchor),
-      leadingConstraint,
-      trailingConstraint
-    ])
-
-    separatorLeadingConstraint = leadingConstraint
-    separatorTrailingConstraint = trailingConstraint
+    separatorTopConstraint = separatorView.topAnchor.constraint(equalTo: topAnchor)
+    separatorBottomConstraint = separatorView.bottomAnchor.constraint(equalTo: bottomAnchor)
+    separatorLeadingConstraint = separatorView.leadingAnchor.constraint(equalTo: leadingAnchor)
+    separatorTrailingConstraint = separatorView.trailingAnchor.constraint(equalTo: trailingAnchor)
+  }
+  
+  private func setConstraintsForAxis() {
+    switch axis {
+    case .horizontal:
+      [
+        contentTrailingConstraintReducedPriority,
+        contentBottomConstraint,
+        separatorTopConstraint,
+        separatorBottomConstraint,
+        separatorTrailingConstraint
+        ].forEach{ $0?.isActive = true }
+      
+      [
+        contentTrailingConstraint,
+        contentBottomConstraintReducedPriority,
+        separatorLeadingConstraint
+        ].forEach{ $0?.isActive = false }
+      
+    case .vertical:
+      [
+        contentTrailingConstraint,
+        contentBottomConstraintReducedPriority,
+        separatorLeadingConstraint,
+        separatorTrailingConstraint,
+        separatorBottomConstraint
+        ].forEach{ $0?.isActive = true }
+      
+      [
+        contentTrailingConstraintReducedPriority,
+        contentBottomConstraint,
+        separatorTopConstraint
+        ].forEach{ $0?.isActive = false }
+    }
   }
 
   private func setUpTapGestureRecognizer() {

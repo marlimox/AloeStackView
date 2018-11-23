@@ -29,13 +29,26 @@ internal final class SeparatorView: UIView {
   }
 
   // MARK: Internal
+    
+  internal var axis: NSLayoutConstraint.Axis = .vertical {
+    didSet { invalidateIntrinsicContentSize() }
+  }
 
   internal override var intrinsicContentSize: CGSize {
-    #if swift(>=4.2)
-    return CGSize(width: UIView.noIntrinsicMetric, height: height)
-    #else
-    return CGSize(width: UIViewNoIntrinsicMetric, height: height)
-    #endif
+    switch axis {
+    case .horizontal:
+      #if swift(>=4.2)
+      return CGSize(width: thickness, height: UIView.noIntrinsicMetric)
+      #else
+      return CGSize(width: thickness, height: UIViewNoIntrinsicMetric)
+      #endif
+    case .vertical:
+      #if swift(>=4.2)
+      return CGSize(width: UIView.noIntrinsicMetric, height: thickness)
+      #else
+      return CGSize(width: UIViewNoIntrinsicMetric, height: thickness)
+      #endif
+    }
   }
 
   internal var color: UIColor {
@@ -43,7 +56,7 @@ internal final class SeparatorView: UIView {
     set { backgroundColor = newValue }
   }
 
-  internal var height: CGFloat = 1 {
+  internal var thickness: CGFloat = 1 {
     didSet { invalidateIntrinsicContentSize() }
   }
 
