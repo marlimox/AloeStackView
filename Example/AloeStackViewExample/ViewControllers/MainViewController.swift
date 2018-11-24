@@ -43,6 +43,7 @@ public class MainViewController: AloeStackViewController {
     setUpHiddenRows()
     setUpExpandingRowView()
     setUpPhotoRow()
+    setUpHorizontalStackRowView()
   }
 
   private func setUpDescriptionRow() {
@@ -137,4 +138,9 @@ public class MainViewController: AloeStackViewController {
     }
   }
 
+  private func setUpHorizontalStackRowView() {
+    let view = HorizontalStackRowView()
+    stackView.addRow(view)
+  }
+  
 }

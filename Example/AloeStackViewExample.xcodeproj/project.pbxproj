@@ -15,6 +15,7 @@
 		A74F70BB217155FC0054AA18 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74F70BA217155FC0054AA18 /* MainViewController.swift */; };
 		A74F70C0217155FE0054AA18 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A74F70BF217155FE0054AA18 /* Assets.xcassets */; };
 		A74F70C3217155FE0054AA18 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A74F70C1217155FE0054AA18 /* LaunchScreen.storyboard */; };
+		B8D4D41621A8C97C003055C0 /* HorizontalStackRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D4D41521A8C97C003055C0 /* HorizontalStackRowView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		A74F70BA217155FC0054AA18 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		A74F70BF217155FE0054AA18 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A74F70C2217155FE0054AA18 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		B8D4D41521A8C97C003055C0 /* HorizontalStackRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalStackRowView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +82,7 @@
 			isa = PBXGroup;
 			children = (
 				A7497A922174725700BB692A /* SwitchRowView.swift */,
+				B8D4D41521A8C97C003055C0 /* HorizontalStackRowView.swift */,
 				A7497A9821755AD100BB692A /* ExpandingRowView.swift */,
 			);
 			path = Views;
@@ -204,6 +207,7 @@
 				A7497A9721747DD600BB692A /* PhotoViewController.swift in Sources */,
 				A74F70B9217155FC0054AA18 /* AppDelegate.swift in Sources */,
 				A7497A9921755AD100BB692A /* ExpandingRowView.swift in Sources */,
+				B8D4D41621A8C97C003055C0 /* HorizontalStackRowView.swift in Sources */,
 				A7497A932174725700BB692A /* SwitchRowView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
