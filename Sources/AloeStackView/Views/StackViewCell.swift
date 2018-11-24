@@ -22,8 +22,9 @@ open class StackViewCell: UIView {
 
   // MARK: Lifecycle
 
-  public init(contentView: UIView) {
+  public init(contentView: UIView, withAxis axis: NSLayoutConstraint.Axis = .vertical) {
     self.contentView = contentView
+    self.axis = axis
 
     super.init(frame: .zero)
     translatesAutoresizingMaskIntoConstraints = false

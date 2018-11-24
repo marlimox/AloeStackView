@@ -408,7 +408,7 @@ open class AloeStackView: UIScrollView {
   /// properties of the cell, override `configureCell(_:)` and perform the customization there,
   /// rather than on the cell returned from this method.
   open func cellForRow(_ row: UIView) -> StackViewCell {
-    return StackViewCell(contentView: row)
+    return StackViewCell(contentView: row, withAxis: axis)
   }
 
   /// Allows subclasses to configure the properties of the given `StackViewCell`.
@@ -479,7 +479,6 @@ open class AloeStackView: UIScrollView {
     cell.separatorThickness = separatorThickness
     cell.separatorInset = separatorInset
     cell.shouldHideSeparator = hidesSeparatorsByDefault
-    cell.axis = axis
 
     configureCell(cell)
 
