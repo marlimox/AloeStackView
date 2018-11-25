@@ -35,7 +35,20 @@ open class AloeStackView: UIScrollView {
   }
 
   // MARK: - Public
-    
+
+	// MARK: Scrolling Setting
+
+	/// Sets whether the stackview should allow scrolling if the content doesn't fit
+	/// Default is true.
+	/// If set to false, the stackview will constrain its contents to fit its size (rather than scrolling to fit)
+	public var shouldUseScrollingToFitContent: Bool = true {
+		didSet {
+			setConstraintsForAxis()
+			isScrollEnabled = shouldUseScrollingToFitContent
+			stackView.distribution = shouldUseScrollingToFitContent ? .fill : .fillProportionally
+		}
+	}
+
   // MARK: Axis for stackview
   public var axis: NSLayoutConstraint.Axis {
     didSet {
@@ -462,9 +475,9 @@ open class AloeStackView: UIScrollView {
     switch axis {
     case .horizontal:
       heightConstraint?.isActive = true
-      widthConstraint?.isActive = false
+			widthConstraint?.isActive = shouldUseScrollingToFitContent ? false : true
     case .vertical:
-      heightConstraint?.isActive = false
+      heightConstraint?.isActive = shouldUseScrollingToFitContent ? false : true
       widthConstraint?.isActive = true
     }
   }
