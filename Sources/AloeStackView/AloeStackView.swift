@@ -307,11 +307,9 @@ open class AloeStackView: UIScrollView {
   /// The default inset is 15pt on each side and 12pt on the top and bottom.
   open var rowInset = UIEdgeInsets(
     top: 12,
-    left: AloeStackView.defaultSeparatorInset.left,
+    left: 15,
     bottom: 12,
-    // Intentional, to match the default spacing of UITableView's cell separators but balanced on
-    // each side.
-    right: AloeStackView.defaultSeparatorInset.left)
+    right: 15 )
 
   /// Sets the inset for the given row to the `UIEdgeInsets` provided.
   open func setInset(forRow row: UIView, inset: UIEdgeInsets) {
@@ -596,6 +594,10 @@ open class AloeStackView: UIScrollView {
 
   private static let defaultRowHighlightColor: UIColor = UIColor(red: 217 / 255, green: 217 / 255, blue: 217 / 255, alpha: 1)
   private static let defaultSeparatorColor: UIColor = UITableView().separatorColor ?? .clear
-  private static let defaultSeparatorInset: UIEdgeInsets = UITableView().separatorInset
+  private static let defaultSeparatorInset: UIEdgeInsets = UIEdgeInsets(
+		top: 0,
+		left: 15,
+		bottom: 0,
+		right: 15)
 
 }
