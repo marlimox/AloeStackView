@@ -37,20 +37,29 @@ open class AloeStackView: UIScrollView {
   // MARK: - Public
 
 	// MARK: Scrolling Setting
+	public enum DistributionMode {
+		case scrolling
+		case noScroll(withDistribution: UIStackView.Distribution)
+	}
 
 	/// Sets whether the stackview should allow scrolling if the content doesn't fit
-	/// Default is true.
-	/// If set to false, the stackview will constrain its contents to fit its size (rather than scrolling to fit)
-	public var shouldUseScrollingToFitContent: Bool = true {
+	/// Default is .scrolling
+	public var distributionMode: DistributionMode = .scrolling {
 		didSet {
 			setConstraintsForAxis()
-			isScrollEnabled = shouldUseScrollingToFitContent
-			setStackViewProperties()
+			applyDistributionMode()
 		}
 	}
 
-	public var distributionOverride: UIStackView.Distribution? {
-		didSet { setStackViewProperties() }
+	private func applyDistributionMode() {
+		switch distributionMode {
+		case .scrolling:
+			stackView.distribution = .fill
+			isScrollEnabled = true
+		case .noScroll(let distribution):
+			stackView.distribution = distribution
+			isScrollEnabled = false
+		}
 	}
 
 	public var alignment: UIStackView.Alignment {
@@ -58,24 +67,11 @@ open class AloeStackView: UIScrollView {
 		set { stackView.alignment = newValue }
 	}
 
-	func setStackViewProperties() {
-		//Set axis
-		stackView.axis = axis
-
-		//Set distribution
-		if let override = distributionOverride {
-			stackView.distribution = override
-		} else {
-			stackView.distribution = shouldUseScrollingToFitContent ? .fill : .fillProportionally
-		}
-	}
-
-
   // MARK: Axis for stackview
   public var axis: NSLayoutConstraint.Axis {
     didSet {
       setConstraintsForAxis()
-			setStackViewProperties()
+			stackView.axis = axis
       for case let cell as StackViewCell in stackView.arrangedSubviews {
         cell.axis = axis
       }
@@ -494,12 +490,20 @@ open class AloeStackView: UIScrollView {
   }
   
   private func setConstraintsForAxis() {
+		let constrainContentSizeToContainer: Bool
+		switch distributionMode {
+		case .scrolling:
+			constrainContentSizeToContainer = false
+		case .noScroll:
+			constrainContentSizeToContainer = true
+		}
+
     switch axis {
     case .horizontal:
       heightConstraint?.isActive = true
-			widthConstraint?.isActive = shouldUseScrollingToFitContent ? false : true
+			widthConstraint?.isActive = constrainContentSizeToContainer
     case .vertical:
-      heightConstraint?.isActive = shouldUseScrollingToFitContent ? false : true
+      heightConstraint?.isActive = constrainContentSizeToContainer
       widthConstraint?.isActive = true
     }
   }
