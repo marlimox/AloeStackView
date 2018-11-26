@@ -45,15 +45,37 @@ open class AloeStackView: UIScrollView {
 		didSet {
 			setConstraintsForAxis()
 			isScrollEnabled = shouldUseScrollingToFitContent
+			setStackViewProperties()
+		}
+	}
+
+	public var distributionOverride: UIStackView.Distribution? {
+		didSet { setStackViewProperties() }
+	}
+
+	public var alignment: UIStackView.Alignment {
+		get { return stackView.alignment }
+		set { stackView.alignment = newValue }
+	}
+
+	func setStackViewProperties() {
+		//Set axis
+		stackView.axis = axis
+
+		//Set distribution
+		if let override = distributionOverride {
+			stackView.distribution = override
+		} else {
 			stackView.distribution = shouldUseScrollingToFitContent ? .fill : .fillProportionally
 		}
 	}
+
 
   // MARK: Axis for stackview
   public var axis: NSLayoutConstraint.Axis {
     didSet {
       setConstraintsForAxis()
-      stackView.axis = axis
+			setStackViewProperties()
       for case let cell as StackViewCell in stackView.arrangedSubviews {
         cell.axis = axis
       }
