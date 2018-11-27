@@ -75,17 +75,9 @@ public class MainViewController: AloeStackViewController {
     stackView.addRows(hiddenRows)
     stackView.hideRows(hiddenRows)
 
-    let rowInset = UIEdgeInsets(
-      top: stackView.rowInset.top,
-      left: stackView.rowInset.left * 2,
-      bottom: stackView.rowInset.bottom,
-      right: stackView.rowInset.right)
+    let rowInset = StackViewCell.Inset(leading: stackView.rowInset.leading * 2, trailing: stackView.rowInset.trailing)
 
-    let separatorInset = UIEdgeInsets(
-      top: 0,
-      left: stackView.separatorInset.left * 2,
-      bottom: 0,
-      right: 0)
+    let separatorInset = StackViewCell.Inset(leading: stackView.separatorInset.leading * 2, trailing: stackView.separatorInset.trailing)
 
     stackView.setInset(forRows: hiddenRows, inset: rowInset)
     stackView.setSeperatorInset(forRows: Array(hiddenRows.dropLast()), inset: separatorInset)
@@ -103,11 +95,7 @@ public class MainViewController: AloeStackViewController {
     titleLabel.text = "Handle user interaction"
     stackView.addRow(titleLabel)
     stackView.hideSeparator(forRow: titleLabel)
-    stackView.setInset(forRow: titleLabel, inset: UIEdgeInsets(
-      top: stackView.rowInset.top,
-      left: stackView.rowInset.left,
-      bottom: 4,
-      right: stackView.rowInset.right))
+    stackView.setPadding(forRow: titleLabel, padding: .init(before: stackView.rowPadding.before, after: 4))
 
     let captionLabel = UILabel()
     captionLabel.font = UIFont.preferredFont(forTextStyle: .caption2)
@@ -116,11 +104,7 @@ public class MainViewController: AloeStackViewController {
     captionLabel.text = "(Try tapping on the photo!)"
     stackView.addRow(captionLabel)
     stackView.hideSeparator(forRow: captionLabel)
-    stackView.setInset(forRow: captionLabel, inset: UIEdgeInsets(
-      top: 0,
-      left: stackView.rowInset.left,
-      bottom: stackView.rowInset.bottom,
-      right: stackView.rowInset.right))
+    stackView.setPadding(forRow: captionLabel, padding: .init(before: 0, after: stackView.rowPadding.after))
 
     guard let image = UIImage(named: "lobster-dog") else { return }
     let aspectRatio = image.size.height / image.size.width

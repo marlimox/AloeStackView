@@ -31,9 +31,11 @@ open class StackViewCell: UIView {
     if #available(iOS 11.0, *) {
       insetsLayoutMarginsFromSafeArea = false
     }
+		layoutMargins = .zero
 
     setUpViews()
     setUpConstraints()
+		setConstraintsForAxis()
     setUpTapGestureRecognizer()
   }
 
@@ -58,10 +60,44 @@ open class StackViewCell: UIView {
     }
   }
 
-  open var rowInset: UIEdgeInsets {
-    get { return layoutMargins }
-    set { layoutMargins = newValue }
-  }
+	public struct Padding {
+		public let before: CGFloat
+		public let after: CGFloat
+		public init(before: CGFloat, after: CGFloat) {
+			self.before = before
+			self.after = after
+		}
+		static var zero: Padding {
+			return Padding(before: 0, after: 0)
+		}
+	}
+
+	/// Specifies the padding added between each row and the separator
+	open var rowPadding: Padding = .zero {
+		didSet {
+			updateLayoutMarginsForAxis()
+		}
+	}
+
+	public struct Inset {
+		public let leading: CGFloat
+		public let trailing: CGFloat
+		public init(leading: CGFloat, trailing: CGFloat) {
+			self.leading = leading
+			self.trailing = trailing
+		}
+		static var zero: Inset {
+			return Inset(leading: 0, trailing: 0)
+		}
+	}
+
+	/// Specifies the inset of the edges of each row
+	/// Axis-dependent, the leading and trailing values are used for left/right (vertical axis) or top/bottom (horizontal axis)
+	open var rowInset: Inset = .zero {
+		didSet {
+			updateLayoutMarginsForAxis()
+		}
+	}
 
   open var separatorColor: UIColor {
     get { return separatorView.color }
@@ -73,8 +109,8 @@ open class StackViewCell: UIView {
     set { separatorView.thickness = newValue }
   }
 
-  open var separatorInset: UIEdgeInsets = .zero {
-    didSet { updateSeparatorInset() }
+  open var separatorInset: StackViewCell.Inset = .zero {
+    didSet { updateSeparatorInsetForAxis() }
   }
 
   open var isSeparatorHidden: Bool {
@@ -132,6 +168,8 @@ open class StackViewCell: UIView {
   internal var axis: NSLayoutConstraint.Axis = .vertical {
     didSet {
       setConstraintsForAxis()
+			updateLayoutMarginsForAxis()
+			updateSeparatorInsetForAxis()
       separatorView.axis = axis
     }
   }
@@ -162,7 +200,6 @@ open class StackViewCell: UIView {
   private func setUpConstraints() {
     setUpContentViewConstraints()
     setUpSeparatorViewConstraints()
-    setConstraintsForAxis()
   }
 
   private var contentTopConstraint: NSLayoutConstraint?
@@ -240,6 +277,15 @@ open class StackViewCell: UIView {
     }
   }
 
+	func updateLayoutMarginsForAxis() {
+		switch axis {
+		case .horizontal:
+			layoutMargins = UIEdgeInsets(top: rowInset.leading, left: rowPadding.before, bottom: rowInset.trailing, right: rowPadding.after)
+		case .vertical:
+			layoutMargins = UIEdgeInsets(top: rowPadding.before, left: rowInset.leading, bottom: rowPadding.after, right: rowInset.trailing)
+		}
+	}
+
   private func setUpTapGestureRecognizer() {
     tapGestureRecognizer.addTarget(self, action: #selector(handleTap(_:)))
     addGestureRecognizer(tapGestureRecognizer)
@@ -256,9 +302,19 @@ open class StackViewCell: UIView {
     tapGestureRecognizer.isEnabled = contentView is Tappable || tapHandler != nil
   }
 
-  private func updateSeparatorInset() {
-    separatorLeadingConstraint?.constant = separatorInset.left
-    separatorTrailingConstraint?.constant = -separatorInset.right
+  private func updateSeparatorInsetForAxis() {
+		switch axis {
+		case .horizontal:
+			separatorTopConstraint?.constant = separatorInset.leading
+			separatorBottomConstraint?.constant = -separatorInset.trailing
+			separatorLeadingConstraint?.constant = 0
+			separatorTrailingConstraint?.constant = 0
+		case .vertical:
+			separatorTopConstraint?.constant = 0
+			separatorBottomConstraint?.constant = 0
+			separatorLeadingConstraint?.constant = separatorInset.leading
+			separatorTrailingConstraint?.constant = -separatorInset.trailing
+		}
   }
 
 }
