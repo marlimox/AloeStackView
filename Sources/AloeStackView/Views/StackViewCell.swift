@@ -67,7 +67,7 @@ open class StackViewCell: UIView {
 			self.before = before
 			self.after = after
 		}
-		static var zero: Padding {
+		public static var zero: Padding {
 			return Padding(before: 0, after: 0)
 		}
 	}
@@ -86,7 +86,7 @@ open class StackViewCell: UIView {
 			self.leading = leading
 			self.trailing = trailing
 		}
-		static var zero: Inset {
+		public static var zero: Inset {
 			return Inset(leading: 0, trailing: 0)
 		}
 	}
