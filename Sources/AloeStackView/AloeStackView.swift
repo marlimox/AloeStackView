@@ -186,7 +186,7 @@ open class AloeStackView: UIScrollView {
   ///
   /// If `animated` is `true`, the change is animated.
   open func setRowHidden(_ row: UIView, isHidden: Bool, animated: Bool = false) {
-    guard let cell = row.superview as? StackViewCell else { return }
+    guard let cell = row.superview as? StackViewCell, cell.isHidden != isHidden else { return }
 
     if animated {
       UIView.animate(withDuration: 0.3) {
