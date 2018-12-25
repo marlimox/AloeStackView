@@ -280,6 +280,11 @@ open class AloeStackView: UIScrollView {
     rows.forEach { setInset(forRow: $0, inset: inset) }
   }
 
+  /// Sets the spacing between rows
+  open func setSpacing(_ spacing: CGFloat) {
+    stackView.spacing = spacing
+  }
+
   // MARK: Styling Separators
 
   /// The color of separators in the stack view.
