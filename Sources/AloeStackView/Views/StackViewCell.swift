@@ -97,7 +97,7 @@ open class StackViewCell: UIView {
   }
 
   open override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-    super.touchesMoved(touches, with: event)
+    super.touchesCancelled(touches, with: event)
     guard contentView.isUserInteractionEnabled else { return }
 
     if let contentView = contentView as? Highlightable, contentView.isHighlightable {
