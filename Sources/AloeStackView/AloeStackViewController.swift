@@ -34,9 +34,21 @@ open class AloeStackViewController: UIViewController {
     view = stackView
   }
 
+  open override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    if automaticallyFlashScrollIndicators {
+        stackView.flashScrollIndicators()
+    }
+  }
+
   // MARK: Public
 
   /// The stack view this controller manages.
   public let stackView = AloeStackView()
+
+  /// When true, automatically displays the scroll indicators in the stack view momentarily whenever the view appears.
+  ///
+  /// Default is `false`.
+  open var automaticallyFlashScrollIndicators = false
 
 }

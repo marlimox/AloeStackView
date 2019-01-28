@@ -251,8 +251,8 @@ stackView.separatorInset = .zero
 As with `hidesSeparatorsByDefault`, this property only applies to new rows that are added. Rows already in the
 `AloeStackView` won't be affected.
 
-You can change the separator inset for existing rows with the `setSeperatorInset(forRow:)` and
-`setSeperatorInset(forRows:)` methods.
+You can change the separator inset for existing rows with the `setSeparatorInset(forRow:)` and
+`setSeparatorInset(forRows:)` methods.
 
 `AloeStackView` also provides properties for customizing the color and height of separators:
 

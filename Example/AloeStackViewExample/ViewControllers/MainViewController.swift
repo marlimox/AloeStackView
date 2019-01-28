@@ -88,7 +88,7 @@ public class MainViewController: AloeStackViewController {
       right: 0)
 
     stackView.setInset(forRows: hiddenRows, inset: rowInset)
-    stackView.setSeperatorInset(forRows: Array(hiddenRows.dropLast()), inset: separatorInset)
+    stackView.setSeparatorInset(forRows: Array(hiddenRows.dropLast()), inset: separatorInset)
   }
 
   private func setUpExpandingRowView() {

@@ -21,4 +21,16 @@ final class AloeStackViewTests: XCTestCase {
   func test() {
   }
 
+  func testSetRowHiddenDuplicateCalls() {
+    let stackView = AloeStackView()
+    let row = UIView()
+    stackView.addRow(row)
+
+    stackView.setRowHidden(row, isHidden: true, animated: true)
+    stackView.setRowHidden(row, isHidden: true, animated: true)
+    stackView.setRowHidden(row, isHidden: false, animated: true)
+
+    XCTAssertFalse(stackView.isRowHidden(row))
+  }
+
 }
