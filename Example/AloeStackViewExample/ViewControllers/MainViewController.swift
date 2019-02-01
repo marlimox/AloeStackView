@@ -43,6 +43,7 @@ public class MainViewController: AloeStackViewController {
     setUpHiddenRows()
     setUpExpandingRowView()
     setUpPhotoRow()
+    setUpPreserveLayoutMarginsRow()
   }
 
   private func setUpDescriptionRow() {
@@ -134,6 +135,21 @@ public class MainViewController: AloeStackViewController {
       guard let self = self else { return }
       let vc = PhotoViewController()
       self.navigationController?.pushViewController(vc, animated: true)
+    }
+  }
+
+  private func setUpPreserveLayoutMarginsRow() {
+    let label = UILabel()
+    label.font = UIFont.preferredFont(forTextStyle: .body)
+    label.numberOfLines = 0
+    label.text = "Tap here to view an AloeStackView constrained within its superview layout margins"
+    label.isUserInteractionEnabled = true
+    
+    stackView.addRow(label)
+    stackView.setTapHandler(forRow: label) { [weak self] _ in
+        guard let self = self else { return }
+        let vc = PreserveLayoutMarginsViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
     }
   }
 
