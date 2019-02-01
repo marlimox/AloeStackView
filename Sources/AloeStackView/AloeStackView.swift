@@ -304,10 +304,11 @@ open class AloeStackView: UIScrollView {
     }
   }
 
-  /// Set whether the layout margins of the superview should be included
+  /// Set whether the layout margins of the superview should be included.
+  ///
   /// This comes in handy as iPhones and iPads can have different layout margins
   /// and convenient as it automatically provide an inset to all the rows
-  /// without having to set it explicitely
+  /// without having to set it explicitely.
   open override var preservesSuperviewLayoutMargins: Bool {
     didSet {
         stackView.preservesSuperviewLayoutMargins = preservesSuperviewLayoutMargins
