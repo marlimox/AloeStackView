@@ -142,7 +142,7 @@ public class MainViewController: AloeStackViewController {
     let label = UILabel()
     label.font = UIFont.preferredFont(forTextStyle: .body)
     label.numberOfLines = 0
-    label.text = "Tap here to view an AloeStackView constrained within its superview layout margins"
+    label.text = "Tap here to view an AloeStackView constrained within its superview's layout margins."
     label.isUserInteractionEnabled = true
     
     stackView.addRow(label)
