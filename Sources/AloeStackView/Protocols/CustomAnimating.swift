@@ -17,11 +17,55 @@
  * The rows in `AloeStackView` help Custom Animation to work.
  *
  * Rows that are added to an `AloeStackView` can conform to this protocol to have their
- * You can freely change the state animation of each contentView when a row is inserted or deleted.
+ * You can freely change the state animation of each contentView when a row is inserted or removed.
  */
+
+import UIKit
+
 public protocol CustomAnimating {
 
-  /// Invoked when animated is true when inserting or deleting.
-  func willAnimate(with coordinator: AnimationCoordinator)
+  /// The springDamping value used to determine the amount of 'bounce'
+  /// seen when animationing to insert or remove state
+  ///
+  /// Default Value is 0.8.
+  var springDamping: CGFloat { get }
+
+  /// Called before insert animation is activated.
+  func insertAnimationWillBegin()
+
+  /// Called when insert animation is working.
+  func animateInsert()
+
+  /// Called after insert animation.
+  func insertAnimationDidEnd(_ finished: Bool)
+    
+  /// Called before remove animation is activated.
+  func removeAnimationWillBegin()
+    
+  /// Called when remove animation is working.
+  func animateRemove()
+    
+  /// Called after remove animation.
+  func removeAnimationDidEnd(_ finished: Bool)
+
+}
+
+public extension CustomAnimating where Self: UIView {
+
+  var springDamping: CGFloat {
+    return 0.8
+  }
+
+  func animateInsert() { }
+
+  func insertAnimationWillBegin() { }
+
+  func insertAnimationDidEnd(_ finished: Bool) { }
+
+  func animateRemove() { }
+
+  func removeAnimationWillBegin() { }
+
+  func removeAnimationDidEnd(_ finished: Bool) { }
 
 }

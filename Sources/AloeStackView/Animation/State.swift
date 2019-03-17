@@ -14,12 +14,12 @@
 // limitations under the License.
 
 /**
- * Indicates that the row is added and removed from the AloeStackView.
+ * Indicates that the row is inserted and removed from the AloeStackView.
  */
-public enum State {
+internal enum State {
 
   case insert
 
-  case delete
+  case remove
 
 }

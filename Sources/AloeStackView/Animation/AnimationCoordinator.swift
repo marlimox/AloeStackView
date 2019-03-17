@@ -16,9 +16,9 @@
 import UIKit
 
 /**
- * An object that animates when the Row is inserted and deleted from the AloeStackView.
+ * An object that animates when the Row is inserted and removed from the AloeStackView.
  */
-public class AnimationCoordinator {
+internal class AnimationCoordinator {
 
   // MARK: Internal
 
@@ -30,34 +30,52 @@ public class AnimationCoordinator {
   }
 
   internal func startAnimation() {
-    (target.contentView as? CustomAnimating)?.willAnimate(with: self)
-    UIView.animate(withDuration: AnimationCoordinator.defaultAnimationDuration, animations: {
+    let config = target.contentView as? CustomAnimating
+
+    willBeginAnimation?()
+
+    UIView.animate(withDuration: AnimationCoordinator.defaultAnimationDuration,
+                   delay: 0,
+                   usingSpringWithDamping: config?.springDamping ?? 1,
+                   initialSpringVelocity: 0,
+                   options: [.curveEaseInOut, .allowUserInteraction, .beginFromCurrentState],
+                   animations: {
+      self.animate?()
       self.animations()
-      self.alongsideAnimation?()
-    }) { success in
-      self.completion?(success)
-      self.alongsideCompletion?(success)
+    }) { finished in
+      self.animationDidEnd?(finished)
+      self.completion?(finished)
     }
   }
 
-  // MARK: Public
-
-  public let state: State
-
-  /// AloeStackView gives you the opportunity to change state values ​​by taking over the animation behavior when Row is added and removed.
-  public func animate(alongsideAnimation animation: (() -> Void)?, completion: ((Bool) -> Void)? = nil) {
-    alongsideAnimation = animation
-    alongsideCompletion = completion
-  }
 
   // MARK: Private
 
   private let target: StackViewCell
+  private let state: State
   private let animations: () -> Void
   private let completion: ((Bool) -> Void)?
 
-  private var alongsideAnimation: (() -> Void)?
-  private var alongsideCompletion: ((Bool) -> Void)?
+  private lazy var willBeginAnimation: (() -> Void)? = {
+    switch state {
+    case .insert: return (target.contentView as? CustomAnimating)?.insertAnimationWillBegin
+    case .remove: return (target.contentView as? CustomAnimating)?.removeAnimationWillBegin
+    }
+  }()
+    
+  private lazy var animate: (() -> Void)? = {
+    switch state {
+    case .insert: return (target.contentView as? CustomAnimating)?.animateInsert
+    case .remove: return (target.contentView as? CustomAnimating)?.animateRemove
+    }
+  }()
+    
+  private lazy var animationDidEnd: ((Bool) -> Void)? = {
+    switch state {
+    case .insert: return (target.contentView as? CustomAnimating)?.insertAnimationDidEnd
+    case .remove: return (target.contentView as? CustomAnimating)?.removeAnimationDidEnd
+    }
+  }()
 
   private static let defaultAnimationDuration: TimeInterval = 0.3
 
