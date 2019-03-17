@@ -17,20 +17,20 @@ import UIKit
 import AloeStackView
 
 public class CustomAnimatingLabel: UILabel, CustomAnimating {
-    
-    public func animateInsert() {
-        transform = .identity
-        alpha = 1
-    }
-    
-    public func insertAnimationWillBegin() {
-        transform = CGAffineTransform(translationX: -100, y: 0)
-        alpha = 0
-    }
 
-    public func animateRemove() {
-        transform = CGAffineTransform(translationX: -100, y: 0)
-        alpha = 0
-    }
+  public func animateInsert() {
+    transform = .identity
+    alpha = 1
+  }
+
+  public func insertAnimationWillBegin() {
+    transform = CGAffineTransform(translationX: -100, y: 0)
+    alpha = 0
+  }
+
+  public func animateRemove() {
+    transform = CGAffineTransform(translationX: -100, y: 0)
+    alpha = 0
+  }
 
 }
