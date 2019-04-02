@@ -35,12 +35,43 @@ open class AloeStackView: UIScrollView {
   }
 
   // MARK: - Public
-    
+
+	// MARK: Scrolling Setting
+	public enum DistributionMode {
+		case scrolling
+		case noScroll(withDistribution: UIStackView.Distribution)
+	}
+
+	/// Sets whether the stackview should allow scrolling if the content doesn't fit
+	/// Default is .scrolling
+	public var distributionMode: DistributionMode = .scrolling {
+		didSet {
+			setConstraintsForAxis()
+			applyDistributionMode()
+		}
+	}
+
+	private func applyDistributionMode() {
+		switch distributionMode {
+		case .scrolling:
+			stackView.distribution = .fill
+			isScrollEnabled = true
+		case .noScroll(let distribution):
+			stackView.distribution = distribution
+			isScrollEnabled = false
+		}
+	}
+
+	public var alignment: UIStackView.Alignment {
+		get { return stackView.alignment }
+		set { stackView.alignment = newValue }
+	}
+
   // MARK: Axis for stackview
   public var axis: NSLayoutConstraint.Axis {
     didSet {
       setConstraintsForAxis()
-      stackView.axis = axis
+			stackView.axis = axis
       for case let cell as StackViewCell in stackView.arrangedSubviews {
         cell.axis = axis
       }
@@ -265,30 +296,32 @@ open class AloeStackView: UIScrollView {
     rows.forEach { setBackgroundColor(forRow: $0, color: color) }
   }
 
-  /// Specifies the default inset of rows.
-  ///
-  /// This inset will be used for any new row that is added to the stack view.
-  ///
-  /// You can use this property to add space between a row and the left and right edges of the stack
-  /// view and the rows above and below it. Positive inset values move the row inward and away
-  /// from the stack view edges and away from rows above and below.
-  ///
-  /// The default inset is 15pt on each side and 12pt on the top and bottom.
-  open var rowInset = UIEdgeInsets(
-    top: 12,
-    left: AloeStackView.defaultSeparatorInset.left,
-    bottom: 12,
-    // Intentional, to match the default spacing of UITableView's cell separators but balanced on
-    // each side.
-    right: AloeStackView.defaultSeparatorInset.left)
+  /// Specifies the padding added between each row and the separator
+  /// Default is 12pt
+	open var rowPadding: StackViewCell.Padding = StackViewCell.Padding(before: 12, after: 12)
 
-  /// Sets the inset for the given row to the `UIEdgeInsets` provided.
-  open func setInset(forRow row: UIView, inset: UIEdgeInsets) {
+	/// Sets the padding for the given row to the `CGFloat` provided.
+	open func setPadding(forRow row: UIView, padding: StackViewCell.Padding) {
+		(row.superview as? StackViewCell)?.rowPadding = padding
+	}
+
+	/// Sets the padding for the given rows to the `CGFloat` provided.
+	open func setInset(forRows rows: [UIView], padding: StackViewCell.Padding) {
+		rows.forEach { setPadding(forRow: $0, padding: padding) }
+	}
+
+	/// Specifies the inset of the edges of each row
+	/// Axis-dependent, the leading and trailing values are used for left/right (vertical axis) or top/bottom (horizontal axis)
+	/// Default is 15pt on each side
+	open var rowInset: StackViewCell.Inset = StackViewCell.Inset(leading: 15, trailing: 15)
+
+  /// Sets the inset for the given row to the `Inset` provided.
+  open func setInset(forRow row: UIView, inset: StackViewCell.Inset) {
     (row.superview as? StackViewCell)?.rowInset = inset
   }
 
-  /// Sets the inset for the given rows to the `UIEdgeInsets` provided.
-  open func setInset(forRows rows: [UIView], inset: UIEdgeInsets) {
+  /// Sets the inset for the given rows to the `Inset` provided.
+  open func setInset(forRows rows: [UIView], inset: StackViewCell.Inset) {
     rows.forEach { setInset(forRow: $0, inset: inset) }
   }
 
@@ -321,7 +354,7 @@ open class AloeStackView: UIScrollView {
   /// Only left and right insets are honored. This inset will be used for any new row that is added
   /// to the stack view. The default inset matches the default inset of cell separators in
   /// `UITableView`, which are 15pt on the left and 0pt on the right.
-  open var separatorInset: UIEdgeInsets = AloeStackView.defaultSeparatorInset
+  open var separatorInset: StackViewCell.Inset = AloeStackView.defaultSeparatorInset
 
   /// Sets the separator inset for the given row to the `UIEdgeInsets` provided.
   ///
@@ -459,12 +492,20 @@ open class AloeStackView: UIScrollView {
   }
   
   private func setConstraintsForAxis() {
+		let constrainContentSizeToContainer: Bool
+		switch distributionMode {
+		case .scrolling:
+			constrainContentSizeToContainer = false
+		case .noScroll:
+			constrainContentSizeToContainer = true
+		}
+
     switch axis {
     case .horizontal:
       heightConstraint?.isActive = true
-      widthConstraint?.isActive = false
+			widthConstraint?.isActive = constrainContentSizeToContainer
     case .vertical:
-      heightConstraint?.isActive = false
+      heightConstraint?.isActive = constrainContentSizeToContainer
       widthConstraint?.isActive = true
     }
   }
@@ -474,6 +515,7 @@ open class AloeStackView: UIScrollView {
 
     cell.rowBackgroundColor = rowBackgroundColor
     cell.rowHighlightColor = rowHighlightColor
+		cell.rowPadding = rowPadding
     cell.rowInset = rowInset
     cell.separatorColor = separatorColor
     cell.separatorThickness = separatorThickness
@@ -557,6 +599,6 @@ open class AloeStackView: UIScrollView {
 
   private static let defaultRowHighlightColor: UIColor = UIColor(red: 217 / 255, green: 217 / 255, blue: 217 / 255, alpha: 1)
   private static let defaultSeparatorColor: UIColor = UITableView().separatorColor ?? .clear
-  private static let defaultSeparatorInset: UIEdgeInsets = UITableView().separatorInset
+  private static let defaultSeparatorInset: StackViewCell.Inset = StackViewCell.Inset(leading: 10, trailing: 10)
 
 }
