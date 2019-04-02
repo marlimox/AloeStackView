@@ -359,14 +359,14 @@ open class AloeStackView: UIScrollView {
   /// Sets the separator inset for the given row to the `UIEdgeInsets` provided.
   ///
   /// Only left and right insets are honored.
-  open func setSeparatorInset(forRow row: UIView, inset: UIEdgeInsets) {
+  open func setSeparatorInset(forRow row: UIView, inset: StackViewCell.Inset) {
     (row.superview as? StackViewCell)?.separatorInset = inset
   }
 
   /// Sets the separator inset for the given rows to the `UIEdgeInsets` provided.
   ///
   /// Only left and right insets are honored.
-  open func setSeparatorInset(forRows rows: [UIView], inset: UIEdgeInsets) {
+  open func setSeparatorInset(forRows rows: [UIView], inset: StackViewCell.Inset) {
     rows.forEach { setSeparatorInset(forRow: $0, inset: inset) }
   }
 
