@@ -229,7 +229,7 @@ open class AloeStackView: UIScrollView {
   ///
   /// If `animated` is `true`, the change is animated.
   open func setRowHidden(_ row: UIView, isHidden: Bool, animated: Bool = false) {
-    guard let cell = row.superview as? StackViewCell else { return }
+    guard let cell = row.superview as? StackViewCell, cell.isHidden != isHidden else { return }
 
     if animated {
       UIView.animate(withDuration: 0.3) {
@@ -359,15 +359,15 @@ open class AloeStackView: UIScrollView {
   /// Sets the separator inset for the given row to the `UIEdgeInsets` provided.
   ///
   /// Only left and right insets are honored.
-  open func setSeperatorInset(forRow row: UIView, inset: StackViewCell.Inset) {
+  open func setSeparatorInset(forRow row: UIView, inset: UIEdgeInsets) {
     (row.superview as? StackViewCell)?.separatorInset = inset
   }
 
   /// Sets the separator inset for the given rows to the `UIEdgeInsets` provided.
   ///
   /// Only left and right insets are honored.
-  open func setSeperatorInset(forRows rows: [UIView], inset: StackViewCell.Inset) {
-    rows.forEach { setSeperatorInset(forRow: $0, inset: inset) }
+  open func setSeparatorInset(forRows rows: [UIView], inset: UIEdgeInsets) {
+    rows.forEach { setSeparatorInset(forRow: $0, inset: inset) }
   }
 
   // MARK: Hiding and Showing Separators
