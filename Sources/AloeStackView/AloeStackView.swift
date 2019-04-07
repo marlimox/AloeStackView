@@ -71,8 +71,8 @@ open class AloeStackView: UIScrollView {
   open func insertRow(_ row: UIView, before beforeRow: UIView, animated: Bool = false) {
     #if swift(>=5.0)
     guard
-      let cell = beforeRow.superview as? StackViewCell,
-      let index = stackView.arrangedSubviews.firstIndex(of: cell) else { return }
+        let cell = beforeRow.superview as? StackViewCell,
+        let index = stackView.arrangedSubviews.firstIndex(of: cell) else { return }
     #else
     guard
         let cell = beforeRow.superview as? StackViewCell,
@@ -94,8 +94,8 @@ open class AloeStackView: UIScrollView {
   open func insertRow(_ row: UIView, after afterRow: UIView, animated: Bool = false) {
     #if swift(>=5.0)
     guard
-      let cell = afterRow.superview as? StackViewCell,
-      let index = stackView.arrangedSubviews.firstIndex(of: cell) else { return }
+        let cell = afterRow.superview as? StackViewCell,
+        let index = stackView.arrangedSubviews.firstIndex(of: cell) else { return }
     #else
     guard
         let cell = afterRow.superview as? StackViewCell,
