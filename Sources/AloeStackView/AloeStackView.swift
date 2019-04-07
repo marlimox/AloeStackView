@@ -522,6 +522,115 @@ open class AloeStackView: UIScrollView {
         } else {
             completion(true)
         }
+  }
+  
+  /// The first cell in the stack view.
+  ///
+  /// This is optional because there may not be a cell in the stack view.
+  open var firstCell: StackViewCell? {
+    return stackView.arrangedSubviews.first as? StackViewCell
+  }
+  
+  /// The last cell in the stack view.
+  ///
+  /// This is optional because there may not be a cell in the stack view.
+  open var lastCell: StackViewCell? {
+    return stackView.arrangedSubviews.last as? StackViewCell
+  }
+
+  // MARK: Modifying the Scroll Position
+
+  /// Scrolls the given row onto screen so that it is fully visible.
+  ///
+  /// If `animated` is `true`, the scroll is animated. If the row is already fully visible, this
+  /// method does nothing.
+  open func scrollRowToVisible(_ row: UIView, animated: Bool = true) {
+    guard let superview = row.superview else { return }
+    scrollRectToVisible(convert(row.frame, from: superview), animated: animated)
+  }
+
+  // MARK: Extending AloeStackView
+
+  /// Returns the `StackViewCell` to be used for the given row.
+  ///
+  /// An instance of `StackViewCell` wraps every row in the stack view.
+  ///
+  /// Subclasses can override this method to return a custom `StackViewCell` subclass, for example
+  /// to add custom behavior or functionality that is not provided by default.
+  ///
+  /// If you customize the values of some properties of `StackViewCell` in this method, these values
+  /// may be overwritten by default values after the cell is returned. To customize the values of
+  /// properties of the cell, override `configureCell(_:)` and perform the customization there,
+  /// rather than on the cell returned from this method.
+  open func cellForRow(_ row: UIView) -> StackViewCell {
+    return StackViewCell(contentView: row)
+  }
+
+  /// Allows subclasses to configure the properties of the given `StackViewCell`.
+  ///
+  /// This method is called for newly created cells after the default values of any properties of
+  /// the cell have been set by the superclass.
+  ///
+  /// The default implementation of this method does nothing.
+  open func configureCell(_ cell: StackViewCell) { }
+
+  // MARK: - Private
+
+  private let stackView = UIStackView()
+
+  private func setUpViews() {
+    setUpSelf()
+    setUpStackView()
+  }
+
+  private func setUpSelf() {
+    backgroundColor = UIColor.white
+  }
+
+  private func setUpStackView() {
+    stackView.translatesAutoresizingMaskIntoConstraints = false
+    stackView.axis = .vertical
+    addSubview(stackView)
+  }
+
+  private func setUpConstraints() {
+    setUpStackViewConstraints()
+  }
+
+  private func setUpStackViewConstraints() {
+    NSLayoutConstraint.activate([
+      stackView.topAnchor.constraint(equalTo: topAnchor),
+      stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
+      stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+      stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+      stackView.widthAnchor.constraint(equalTo: widthAnchor)
+    ])
+  }
+
+  private func createCell(withContentView contentView: UIView) -> StackViewCell {
+    let cell = cellForRow(contentView)
+
+    cell.rowBackgroundColor = rowBackgroundColor
+    cell.rowHighlightColor = rowHighlightColor
+    cell.rowInset = rowInset
+    cell.separatorColor = separatorColor
+    cell.separatorHeight = separatorHeight
+    cell.separatorInset = separatorInset
+    cell.shouldHideSeparator = hidesSeparatorsByDefault
+
+    configureCell(cell)
+
+    return cell
+  }
+
+  private func insertCell(withContentView contentView: UIView, atIndex index: Int, animated: Bool) {
+    let cellToRemove = containsRow(contentView) ? contentView.superview : nil
+
+    let cell = createCell(withContentView: contentView)
+    stackView.insertArrangedSubview(cell, at: index)
+
+    if let cellToRemove = cellToRemove as? StackViewCell {
+      removeCell(cellToRemove, animated: false)
     }
     
     private func updateSeparatorVisibility(forCell cell: StackViewCell) {
