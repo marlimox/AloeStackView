@@ -370,6 +370,20 @@ open class AloeStackView: UIScrollView {
       }
     }
   }
+  
+  /// The first cell in the stack view.
+  ///
+  /// This is optional because there may not be a cell in the stack view.
+  open var firstCell: StackViewCell? {
+    return stackView.arrangedSubviews.first as? StackViewCell
+  }
+  
+  /// The last cell in the stack view.
+  ///
+  /// This is optional because there may not be a cell in the stack view.
+  open var lastCell: StackViewCell? {
+    return stackView.arrangedSubviews.last as? StackViewCell
+  }
 
   // MARK: Modifying the Scroll Position
 
