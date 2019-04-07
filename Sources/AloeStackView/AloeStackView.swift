@@ -532,7 +532,7 @@ open class AloeStackView: UIScrollView {
   }
 
   private func cellAbove(cell: StackViewCell) -> StackViewCell? {
-    #if  swift(>=5.0)
+    #if swift(>=5.0)
     guard let index = stackView.arrangedSubviews.firstIndex(of: cell), index > 0 else { return nil }
     #else
     guard let index = stackView.arrangedSubviews.index(of: cell), index > 0 else { return nil }
