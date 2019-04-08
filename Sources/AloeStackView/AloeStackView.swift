@@ -449,6 +449,21 @@ open class AloeStackView: UIScrollView {
       stackView.widthAnchor.constraint(equalTo: widthAnchor)
     ])
   }
+  
+  /// The first row in the stack view.
+  ///
+  /// This is optional because there may not be a row in the stack view.
+  open var firstRow: UIView? {
+    return stackView.arrangedSubviews.first as? StackViewCell
+  }
+  
+  /// The last row in the stack view.
+  ///
+  /// This is optional because there may not be a row in the stack view.
+  open var lastRow: UIView? {
+    return stackView.arrangedSubviews.last as? StackViewCell
+  }
+
 
   private func createCell(withContentView contentView: UIView) -> StackViewCell {
     let cell = cellForRow(contentView)
