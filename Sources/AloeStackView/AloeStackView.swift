@@ -260,7 +260,7 @@ open class AloeStackView: UIScrollView {
   /// This background color will be used for any new row that is added to the stack view.
   /// The default color is clear.
   open var rowBackgroundColor = UIColor.clear
-
+  
   /// The highlight background color of rows in the stack view.
   ///
   /// This highlight background color will be used for any new row that is added to the stack view.
@@ -466,7 +466,7 @@ open class AloeStackView: UIScrollView {
 
   private func createCell(withContentView contentView: UIView) -> StackViewCell {
     let cell = cellForRow(contentView)
-    
+
     cell.rowBackgroundColor = rowBackgroundColor
     cell.rowHighlightColor = rowHighlightColor
     cell.rowInset = rowInset
@@ -474,9 +474,9 @@ open class AloeStackView: UIScrollView {
     cell.separatorHeight = separatorHeight
     cell.separatorInset = separatorInset
     cell.shouldHideSeparator = hidesSeparatorsByDefault
-    
+
     configureCell(cell)
-    
+
     return cell
   }
 
