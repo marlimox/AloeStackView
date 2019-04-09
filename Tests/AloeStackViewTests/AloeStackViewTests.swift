@@ -49,7 +49,6 @@ final class AloeStackViewTests: XCTestCase {
     stackView.addRows([firstRow, middleRow, lastRow])
     XCTAssertTrue(stackView.firstRow === firstRow)
     XCTAssertTrue(stackView.lastRow === lastRow)
-    XCTAssertFalse(stackView.firstRow !== middleRow && stackView.lastRow === middleRow)
   }
   
 }

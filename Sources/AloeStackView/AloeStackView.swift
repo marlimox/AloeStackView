@@ -142,6 +142,20 @@ open class AloeStackView: UIScrollView {
   }
 
   // MARK: Accessing Rows
+  
+  /// The first row in the stack view.
+  ///
+  /// This property is nil if there are no rows in the stack view.
+  open var firstRow: UIView? {
+    return (stackView.arrangedSubviews.first as? StackViewCell)?.contentView
+  }
+  
+  /// The last row in the stack view.
+  ///
+  /// This property is nil if there are no rows in the stack view.
+  open var lastRow: UIView? {
+    return (stackView.arrangedSubviews.last as? StackViewCell)?.contentView
+  }
 
   /// Returns an array containing of all the rows in the stack view.
   ///
@@ -450,21 +464,6 @@ open class AloeStackView: UIScrollView {
     ])
   }
   
-  /// The first row in the stack view.
-  ///
-  /// This is optional because there may not be a row in the stack view.
-  open var firstRow: UIView? {
-    return (stackView.arrangedSubviews.first as? StackViewCell)?.contentView
-  }
-  
-  /// The last row in the stack view.
-  ///
-  /// This is optional because there may not be a row in the stack view.
-  open var lastRow: UIView? {
-    return (stackView.arrangedSubviews.last as? StackViewCell)?.contentView
-  }
-
-
   private func createCell(withContentView contentView: UIView) -> StackViewCell {
     let cell = cellForRow(contentView)
 
