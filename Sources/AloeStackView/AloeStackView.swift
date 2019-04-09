@@ -454,14 +454,14 @@ open class AloeStackView: UIScrollView {
   ///
   /// This is optional because there may not be a row in the stack view.
   open var firstRow: UIView? {
-    return stackView.arrangedSubviews.first as? StackViewCell
+    return (stackView.arrangedSubviews.first as? StackViewCell)?.contentView
   }
   
   /// The last row in the stack view.
   ///
   /// This is optional because there may not be a row in the stack view.
   open var lastRow: UIView? {
-    return stackView.arrangedSubviews.last as? StackViewCell
+    return (stackView.arrangedSubviews.last as? StackViewCell)?.contentView
   }
 
 

@@ -33,4 +33,23 @@ final class AloeStackViewTests: XCTestCase {
     XCTAssertFalse(stackView.isRowHidden(row))
   }
 
+  func testInsertedRowIsFirstAndLastRow() {
+    let stackView = AloeStackView()
+    let row = UIView()
+    stackView.addRow(row)
+    XCTAssertTrue(stackView.firstRow === row)
+    XCTAssertTrue(stackView.lastRow === row)
+  }
+  
+  func testStackViewHasFirstAndLastRow() {
+    let stackView = AloeStackView()
+    let firstRow = UIView()
+    let middleRow = UILabel()
+    let lastRow = UIButton()
+    stackView.addRows([firstRow, middleRow, lastRow])
+    XCTAssertTrue(stackView.firstRow === firstRow)
+    XCTAssertTrue(stackView.lastRow === lastRow)
+    XCTAssertFalse(stackView.firstRow !== middleRow && stackView.lastRow === middleRow)
+  }
+  
 }
