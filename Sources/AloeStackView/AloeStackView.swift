@@ -463,7 +463,6 @@ open class AloeStackView: UIScrollView {
       stackView.widthAnchor.constraint(equalTo: widthAnchor)
     ])
   }
-  
   private func createCell(withContentView contentView: UIView) -> StackViewCell {
     let cell = cellForRow(contentView)
 
