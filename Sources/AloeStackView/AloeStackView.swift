@@ -266,7 +266,7 @@ open class AloeStackView: UIScrollView {
   /// This highlight background color will be used for any new row that is added to the stack view.
   /// The default color is #D9D9D9 (RGB 217, 217, 217).
   open var rowHighlightColor = AloeStackView.defaultRowHighlightColor
-
+   
   /// Sets the background color for the given row to the `UIColor` provided.
   open func setBackgroundColor(forRow row: UIView, color: UIColor) {
     (row.superview as? StackViewCell)?.rowBackgroundColor = color
