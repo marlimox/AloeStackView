@@ -71,12 +71,12 @@ open class AloeStackView: UIScrollView {
   open func insertRow(_ row: UIView, before beforeRow: UIView, animated: Bool = false) {
     #if swift(>=5.0)
     guard
-      let cell = beforeRow.superview as? StackViewCell,
-      let index = stackView.arrangedSubviews.firstIndex(of: cell) else { return }
+        let cell = beforeRow.superview as? StackViewCell,
+        let index = stackView.arrangedSubviews.firstIndex(of: cell) else { return }
     #else
     guard
-      let cell = beforeRow.superview as? StackViewCell,
-      let index = stackView.arrangedSubviews.index(of: cell) else { return }
+        let cell = beforeRow.superview as? StackViewCell,
+        let index = stackView.arrangedSubviews.index(of: cell) else { return }
     #endif
     insertCell(withContentView: row, atIndex: index, animated: animated)
   }
@@ -94,12 +94,12 @@ open class AloeStackView: UIScrollView {
   open func insertRow(_ row: UIView, after afterRow: UIView, animated: Bool = false) {
     #if swift(>=5.0)
     guard
-      let cell = afterRow.superview as? StackViewCell,
-      let index = stackView.arrangedSubviews.firstIndex(of: cell) else { return }
+        let cell = afterRow.superview as? StackViewCell,
+        let index = stackView.arrangedSubviews.firstIndex(of: cell) else { return }
     #else
     guard
-      let cell = afterRow.superview as? StackViewCell,
-      let index = stackView.arrangedSubviews.index(of: cell) else { return }
+        let cell = afterRow.superview as? StackViewCell,
+        let index = stackView.arrangedSubviews.index(of: cell) else { return }
     #endif
     insertCell(withContentView: row, atIndex: index + 1, animated: animated)
   }
@@ -221,7 +221,7 @@ open class AloeStackView: UIScrollView {
       cell.isHidden = isHidden
     }
   }
-  
+
   /// Hides the given rows if `isHidden` is `true`, or shows the given rows if `isHidden` is
   /// `false`.
   ///
@@ -461,7 +461,7 @@ open class AloeStackView: UIScrollView {
       stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
       stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
       stackView.widthAnchor.constraint(equalTo: widthAnchor)
-      ])
+    ])
   }
 
   private func createCell(withContentView contentView: UIView) -> StackViewCell {
