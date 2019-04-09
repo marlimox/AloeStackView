@@ -482,16 +482,16 @@ open class AloeStackView: UIScrollView {
 
   private func insertCell(withContentView contentView: UIView, atIndex index: Int, animated: Bool) {
     let cellToRemove = containsRow(contentView) ? contentView.superview : nil
-    
+
     let cell = createCell(withContentView: contentView)
     stackView.insertArrangedSubview(cell, at: index)
-    
+
     if let cellToRemove = cellToRemove as? StackViewCell {
       removeCell(cellToRemove, animated: false)
     }
-    
+
     updateSeparatorVisibility(forCell: cell)
-    
+
     // A cell can affect the visibility of the cell before it, e.g. if
     // `automaticallyHidesLastSeparator` is true and a new cell is added as the last cell, so update
     // the previous cell's separator visibility as well.
@@ -510,11 +510,11 @@ open class AloeStackView: UIScrollView {
 
   private func removeCell(_ cell: StackViewCell, animated: Bool) {
     let aboveCell = cellAbove(cell: cell)
-    
+
     let completion: (Bool) -> Void = { [weak self] _ in
       guard let `self` = self else { return }
       cell.removeFromSuperview()
-      
+
       // When removing a cell, the cell before the removed cell is the only cell whose separator
       // visibility could be affected, so we need to update its visibility.
       if let aboveCell = aboveCell {
@@ -527,7 +527,7 @@ open class AloeStackView: UIScrollView {
         withDuration: 0.3,
         animations: {
           cell.isHidden = true
-      },
+        },
         completion: completion)
     } else {
       completion(true)
@@ -538,7 +538,7 @@ open class AloeStackView: UIScrollView {
     let isLastCellAndHidingIsEnabled = automaticallyHidesLastSeparator &&
       cell === stackView.arrangedSubviews.last
     let cellConformsToSeparatorHiding = cell.contentView is SeparatorHiding
-    
+
     cell.isSeparatorHidden =
       isLastCellAndHidingIsEnabled ||
       cellConformsToSeparatorHiding ||
