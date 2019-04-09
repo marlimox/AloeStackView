@@ -260,7 +260,7 @@ open class AloeStackView: UIScrollView {
   /// This background color will be used for any new row that is added to the stack view.
   /// The default color is clear.
   open var rowBackgroundColor = UIColor.clear
-  
+   
   /// The highlight background color of rows in the stack view.
   ///
   /// This highlight background color will be used for any new row that is added to the stack view.
