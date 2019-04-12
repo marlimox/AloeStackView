@@ -5,7 +5,7 @@ import PackageDescription
 let package = Package(
     name: "AloeStackView",
     platforms: [
-       .ios(.v9),
+       .iOS(.v9),
     ],
     products: [
         .library(
