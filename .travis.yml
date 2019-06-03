@@ -1,8 +1,9 @@
 language: objective-c
-osx_image: xcode10
+osx_image: xcode10.2
 env:
   - SWIFT_VERSION=4.0
   - SWIFT_VERSION=4.2
+  - SWIFT_VERSION=5.0
 install:
   - bundle install
   - brew outdated carthage || brew upgrade carthage
