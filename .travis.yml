@@ -11,4 +11,4 @@ before_script:
   - bundle exec pod lib lint --verbose --fail-fast
   - carthage build --verbose --no-skip-current
 script:
-  - xcodebuild -project AloeStackView.xcodeproj -scheme AloeStackView -sdk iphonesimulator -destination "platform=iOS Simulator,OS=9.0,name=iPhone 6s" -configuration Debug -PBXBuildsContinueAfterErrors=0 SWIFT_VERSION=$SWIFT_VERSION build test
+  - xcodebuild -project AloeStackView.xcodeproj -scheme AloeStackView -sdk iphonesimulator -destination "platform=iOS Simulator,OS=10.0,name=iPhone 6s" -configuration Debug -PBXBuildsContinueAfterErrors=0 SWIFT_VERSION=$SWIFT_VERSION build test
