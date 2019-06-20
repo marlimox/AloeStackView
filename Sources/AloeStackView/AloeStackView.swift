@@ -176,6 +176,27 @@ open class AloeStackView: UIScrollView {
     return stackView.arrangedSubviews.contains(cell)
   }
 
+  /// Returns row at the specified index, `nil` if the index is incorrect.
+  open func row(at index: Int) -> UIView? {
+    guard index >= 0 && index < stackView.arrangedSubviews.count else {
+        return nil
+    }
+    if let cell = stackView.arrangedSubviews[index] as? StackViewCell {
+        return cell.contentView
+    }
+    return nil
+  }
+
+  /// Returns index of the specified row, `nil` if the row isn't found.
+  open func index(of row: UIView) -> Int? {
+    guard let cell = row.superview as? StackViewCell else { return nil }
+    #if swift(>=5.0)
+      return stackView.arrangedSubviews.firstIndex(of: cell)
+    #else
+      return stackView.arrangedSubviews.index(of: cell)
+    #endif
+  }
+
   // MARK: Hiding and Showing Rows
 
   /// Hides the given row, making it invisible.

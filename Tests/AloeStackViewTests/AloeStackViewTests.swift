@@ -50,5 +50,29 @@ final class AloeStackViewTests: XCTestCase {
     XCTAssertTrue(stackView.firstRow === firstRow)
     XCTAssertTrue(stackView.lastRow === lastRow)
   }
+    
+  func testGettingRowByIndex() {
+    let stackView = AloeStackView()
+    let firstRow = UIView()
+    let middleRow = UILabel()
+    let lastRow = UIButton()
+    stackView.addRows([firstRow, middleRow, lastRow])
+    XCTAssertTrue(stackView.row(at: 0) === firstRow)
+    XCTAssertTrue(stackView.row(at: 1) === middleRow)
+    XCTAssertTrue(stackView.row(at: 3) === nil)
+    XCTAssertTrue(stackView.row(at: -1) === nil)
+  }
+
+  func testGettingIndexOfRow() {
+    let stackView = AloeStackView()
+    let firstRow = UIView()
+    let middleRow = UILabel()
+    let lastRow = UIButton()
+    let notIncludedRow = UISwitch()
+    stackView.addRows([firstRow, middleRow, lastRow])
+    XCTAssertTrue(stackView.index(of: firstRow) == 0)
+    XCTAssertTrue(stackView.index(of: lastRow) == 2)
+    XCTAssertTrue(stackView.index(of: notIncludedRow) == nil)
+  }
   
 }
