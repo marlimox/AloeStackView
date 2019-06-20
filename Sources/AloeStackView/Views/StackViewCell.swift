@@ -98,8 +98,7 @@ open class StackViewCell: UIView {
 
   open override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
     super.touchesMoved(touches, with: event)
-    guard contentView.isUserInteractionEnabled else { return }
-    guard let touch = touches.first else { return }
+    guard contentView.isUserInteractionEnabled, let touch = touches.first else { return }
 
     let locationInSelf = touch.location(in: self)
 
@@ -221,15 +220,16 @@ open class StackViewCell: UIView {
 
 }
 
-
 extension StackViewCell: UIGestureRecognizerDelegate {
+
   public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
     guard let view = gestureRecognizer.view else { return false }
 
     let location = touch.location(in: view)
     let hitView = view.hitTest(location, with: nil)
 
-    // ensure UIControls get the touches instead of the tap gesture
+    // Ensure UIControls get the touches instead of the tap gesture.
     return !(hitView is UIControl)
   }
+
 }
