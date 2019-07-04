@@ -96,6 +96,18 @@ open class StackViewCell: UIView {
     }
   }
 
+  open override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+    super.touchesMoved(touches, with: event)
+    guard contentView.isUserInteractionEnabled, let touch = touches.first else { return }
+
+    let locationInSelf = touch.location(in: self)
+
+    if let contentView = contentView as? Highlightable, contentView.isHighlightable {
+      let isPointInsideCell = point(inside: locationInSelf, with: event)
+      contentView.setIsHighlighted(isPointInsideCell)
+    }
+  }
+
   open override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
     super.touchesCancelled(touches, with: event)
     guard contentView.isUserInteractionEnabled else { return }
@@ -186,6 +198,7 @@ open class StackViewCell: UIView {
 
   private func setUpTapGestureRecognizer() {
     tapGestureRecognizer.addTarget(self, action: #selector(handleTap(_:)))
+    tapGestureRecognizer.delegate = self
     addGestureRecognizer(tapGestureRecognizer)
     updateTapGestureRecognizerEnabled()
   }
@@ -203,6 +216,20 @@ open class StackViewCell: UIView {
   private func updateSeparatorInset() {
     separatorLeadingConstraint?.constant = separatorInset.left
     separatorTrailingConstraint?.constant = -separatorInset.right
+  }
+
+}
+
+extension StackViewCell: UIGestureRecognizerDelegate {
+
+  public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+    guard let view = gestureRecognizer.view else { return false }
+
+    let location = touch.location(in: view)
+    let hitView = view.hitTest(location, with: nil)
+
+    // Ensure UIControls get the touches instead of the tap gesture.
+    return !(hitView is UIControl)
   }
 
 }
