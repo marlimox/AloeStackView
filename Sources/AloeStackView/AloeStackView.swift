@@ -40,8 +40,8 @@ open class AloeStackView: UIScrollView {
   /// Adds a row to the end of the stack view.
   ///
   /// If `animated` is `true`, the insertion is animated.
-  open func addRow(_ row: UIView, animated: Bool = false) {
-    insertCell(withContentView: row, atIndex: stackView.arrangedSubviews.count, animated: animated)
+  open func addRow(_ row: UIView, animated: Bool = false, completion: ((Bool) -> Void)? = nil) {
+    insertCell(withContentView: row, atIndex: stackView.arrangedSubviews.count, animated: animated, completion: completion)
   }
 
   /// Adds multiple rows to the end of the stack view.
@@ -54,8 +54,8 @@ open class AloeStackView: UIScrollView {
   /// Adds a row to the beginning of the stack view.
   ///
   /// If `animated` is `true`, the insertion is animated.
-  open func prependRow(_ row: UIView, animated: Bool = false) {
-    insertCell(withContentView: row, atIndex: 0, animated: animated)
+  open func prependRow(_ row: UIView, animated: Bool = false, completion: ((Bool) -> Void)? = nil) {
+    insertCell(withContentView: row, atIndex: 0, animated: animated, completion: completion)
   }
 
   /// Adds multiple rows to the beginning of the stack view.
@@ -68,7 +68,7 @@ open class AloeStackView: UIScrollView {
   /// Inserts a row above the specified row in the stack view.
   ///
   /// If `animated` is `true`, the insertion is animated.
-  open func insertRow(_ row: UIView, before beforeRow: UIView, animated: Bool = false) {
+  open func insertRow(_ row: UIView, before beforeRow: UIView, animated: Bool = false, completion: ((Bool) -> Void)? = nil) {
     #if swift(>=5.0)
     guard
         let cell = beforeRow.superview as? StackViewCell,
@@ -78,7 +78,7 @@ open class AloeStackView: UIScrollView {
         let cell = beforeRow.superview as? StackViewCell,
         let index = stackView.arrangedSubviews.index(of: cell) else { return }
     #endif
-    insertCell(withContentView: row, atIndex: index, animated: animated)
+    insertCell(withContentView: row, atIndex: index, animated: animated, completion: completion)
   }
 
   /// Inserts multiple rows above the specified row in the stack view.
@@ -91,7 +91,7 @@ open class AloeStackView: UIScrollView {
   /// Inserts a row below the specified row in the stack view.
   ///
   /// If `animated` is `true`, the insertion is animated.
-  open func insertRow(_ row: UIView, after afterRow: UIView, animated: Bool = false) {
+  open func insertRow(_ row: UIView, after afterRow: UIView, animated: Bool = false, completion: ((Bool) -> Void)? = nil) {
     #if swift(>=5.0)
     guard
         let cell = afterRow.superview as? StackViewCell,
@@ -101,7 +101,7 @@ open class AloeStackView: UIScrollView {
         let cell = afterRow.superview as? StackViewCell,
         let index = stackView.arrangedSubviews.index(of: cell) else { return }
     #endif
-    insertCell(withContentView: row, atIndex: index + 1, animated: animated)
+    insertCell(withContentView: row, atIndex: index + 1, animated: animated, completion: completion)
   }
 
   /// Inserts multiple rows below the specified row in the stack view.
@@ -117,9 +117,9 @@ open class AloeStackView: UIScrollView {
   /// Removes the given row from the stack view.
   ///
   /// If `animated` is `true`, the removal is animated.
-  open func removeRow(_ row: UIView, animated: Bool = false) {
+  open func removeRow(_ row: UIView, animated: Bool = false, completion: ((Bool) -> Void)? = nil) {
     if let cell = row.superview as? StackViewCell {
-      removeCell(cell, animated: animated)
+      removeCell(cell, animated: animated, completion: completion)
     }
   }
 
@@ -181,8 +181,8 @@ open class AloeStackView: UIScrollView {
   /// Hides the given row, making it invisible.
   ///
   /// If `animated` is `true`, the change is animated.
-  open func hideRow(_ row: UIView, animated: Bool = false) {
-    setRowHidden(row, isHidden: true, animated: animated)
+  open func hideRow(_ row: UIView, animated: Bool = false, completion: ((Bool) -> Void)? = nil) {
+    setRowHidden(row, isHidden: true, animated: animated, completion: completion)
   }
 
   /// Hides the given rows, making them invisible.
@@ -195,8 +195,8 @@ open class AloeStackView: UIScrollView {
   /// Shows the given row, making it visible.
   ///
   /// If `animated` is `true`, the change is animated.
-  open func showRow(_ row: UIView, animated: Bool = false) {
-    setRowHidden(row, isHidden: false, animated: animated)
+  open func showRow(_ row: UIView, animated: Bool = false, completion: ((Bool) -> Void)? = nil) {
+    setRowHidden(row, isHidden: false, animated: animated, completion: completion)
   }
 
   /// Shows the given rows, making them visible.
@@ -209,16 +209,19 @@ open class AloeStackView: UIScrollView {
   /// Hides the given row if `isHidden` is `true`, or shows the given row if `isHidden` is `false`.
   ///
   /// If `animated` is `true`, the change is animated.
-  open func setRowHidden(_ row: UIView, isHidden: Bool, animated: Bool = false) {
+  open func setRowHidden(_ row: UIView, isHidden: Bool, animated: Bool = false, completion: ((Bool) -> Void)? = nil) {
     guard let cell = row.superview as? StackViewCell, cell.isHidden != isHidden else { return }
 
     if animated {
-      UIView.animate(withDuration: 0.3) {
+      UIView.animate(withDuration: 0.3, animations: {
         cell.isHidden = isHidden
         cell.layoutIfNeeded()
+      }) { flag in
+        completion?(flag)
       }
     } else {
       cell.isHidden = isHidden
+      completion?(true)
     }
   }
 
@@ -480,7 +483,7 @@ open class AloeStackView: UIScrollView {
     return cell
   }
 
-  private func insertCell(withContentView contentView: UIView, atIndex index: Int, animated: Bool) {
+  private func insertCell(withContentView contentView: UIView, atIndex index: Int, animated: Bool, completion: ((Bool) -> Void)? = nil) {
     let cellToRemove = containsRow(contentView) ? contentView.superview : nil
 
     let cell = createCell(withContentView: contentView)
@@ -502,16 +505,20 @@ open class AloeStackView: UIScrollView {
     if animated {
       cell.alpha = 0
       layoutIfNeeded()
-      UIView.animate(withDuration: 0.3) {
+      UIView.animate(withDuration: 0.3, animations: {
         cell.alpha = 1
+      }) { flag in
+        completion?(flag)
       }
+    } else {
+      completion?(true)
     }
   }
 
-  private func removeCell(_ cell: StackViewCell, animated: Bool) {
+  private func removeCell(_ cell: StackViewCell, animated: Bool, completion: ((Bool) -> Void)? = nil) {
     let aboveCell = cellAbove(cell: cell)
 
-    let completion: (Bool) -> Void = { [weak self] _ in
+    let completion: (Bool) -> Void = { [weak self] flag in
       guard let `self` = self else { return }
       cell.removeFromSuperview()
 
@@ -520,6 +527,7 @@ open class AloeStackView: UIScrollView {
       if let aboveCell = aboveCell {
         self.updateSeparatorVisibility(forCell: aboveCell)
       }
+      completion?(flag)
     }
 
     if animated {
