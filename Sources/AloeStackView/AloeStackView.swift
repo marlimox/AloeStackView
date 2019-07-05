@@ -47,8 +47,10 @@ open class AloeStackView: UIScrollView {
   /// Adds multiple rows to the end of the stack view.
   ///
   /// If `animated` is `true`, the insertions are animated.
-  open func addRows(_ rows: [UIView], animated: Bool = false) {
-    rows.forEach { addRow($0, animated: animated) }
+  open func addRows(_ rows: [UIView], animated: Bool = false, completion: ((Bool) -> Void)? = nil) {
+    let group = DispatchGroup()
+    rows.forEach { group.enter(); addRow($0, animated: animated) { _ in group.leave() } }
+    group.notify(queue: .main) { completion?(true) }
   }
 
   /// Adds a row to the beginning of the stack view.
@@ -61,8 +63,10 @@ open class AloeStackView: UIScrollView {
   /// Adds multiple rows to the beginning of the stack view.
   ///
   /// If `animated` is `true`, the insertions are animated.
-  open func prependRows(_ rows: [UIView], animated: Bool = false) {
-    rows.reversed().forEach { prependRow($0, animated: animated) }
+  open func prependRows(_ rows: [UIView], animated: Bool = false, completion: ((Bool) -> Void)? = nil) {
+    let group = DispatchGroup()
+    rows.reversed().forEach { group.enter(); prependRow($0, animated: animated) { _ in group.leave() } }
+    group.notify(queue: .main) { completion?(true) }
   }
 
   /// Inserts a row above the specified row in the stack view.
@@ -84,8 +88,10 @@ open class AloeStackView: UIScrollView {
   /// Inserts multiple rows above the specified row in the stack view.
   ///
   /// If `animated` is `true`, the insertions are animated.
-  open func insertRows(_ rows: [UIView], before beforeRow: UIView, animated: Bool = false) {
-    rows.forEach { insertRow($0, before: beforeRow, animated: animated) }
+  open func insertRows(_ rows: [UIView], before beforeRow: UIView, animated: Bool = false, completion: ((Bool) -> Void)? = nil) {
+    let group = DispatchGroup()
+    rows.forEach { group.enter(); insertRow($0, before: beforeRow, animated: animated) { _ in group.leave() } }
+    group.notify(queue: .main) { completion?(true) }
   }
 
   /// Inserts a row below the specified row in the stack view.
@@ -107,11 +113,14 @@ open class AloeStackView: UIScrollView {
   /// Inserts multiple rows below the specified row in the stack view.
   ///
   /// If `animated` is `true`, the insertions are animated.
-  open func insertRows(_ rows: [UIView], after afterRow: UIView, animated: Bool = false) {
+  open func insertRows(_ rows: [UIView], after afterRow: UIView, animated: Bool = false, completion: ((Bool) -> Void)? = nil) {
+    let group = DispatchGroup()
     _ = rows.reduce(afterRow) { currentAfterRow, row in
-      insertRow(row, after: currentAfterRow, animated: animated)
+      group.enter()
+      insertRow(row, after: currentAfterRow, animated: animated) { _ in group.leave() }
       return row
     }
+    group.notify(queue: .main) { completion?(true) }
   }
 
   /// Removes the given row from the stack view.
@@ -126,19 +135,24 @@ open class AloeStackView: UIScrollView {
   /// Removes the given rows from the stack view.
   ///
   /// If `animated` is `true`, the removals are animated.
-  open func removeRows(_ rows: [UIView], animated: Bool = false) {
-    rows.forEach { removeRow($0, animated: animated) }
+  open func removeRows(_ rows: [UIView], animated: Bool = false, completion: ((Bool) -> Void)? = nil) {
+    let group = DispatchGroup()
+    rows.forEach { group.enter(); removeRow($0, animated: animated) { _ in group.leave() } }
+    group.notify(queue: .main) { completion?(true) }
   }
 
   /// Removes all the rows in the stack view.
   ///
   /// If `animated` is `true`, the removals are animated.
-  open func removeAllRows(animated: Bool = false) {
+  open func removeAllRows(animated: Bool = false, completion: ((Bool) -> Void)? = nil) {
+    let group = DispatchGroup()
     stackView.arrangedSubviews.forEach { view in
       if let cell = view as? StackViewCell {
-        removeRow(cell.contentView, animated: animated)
+        group.enter()
+        removeRow(cell.contentView, animated: animated) { _ in group.leave() }
       }
     }
+    group.notify(queue: .main) { completion?(true) }
   }
 
   // MARK: Accessing Rows
@@ -188,8 +202,10 @@ open class AloeStackView: UIScrollView {
   /// Hides the given rows, making them invisible.
   ///
   /// If `animated` is `true`, the changes are animated.
-  open func hideRows(_ rows: [UIView], animated: Bool = false) {
-    rows.forEach { hideRow($0, animated: animated) }
+  open func hideRows(_ rows: [UIView], animated: Bool = false, completion: ((Bool) -> Void)? = nil) {
+    let group = DispatchGroup()
+    rows.forEach { group.enter(); hideRow($0, animated: animated) { _ in group.leave() } }
+    group.notify(queue: .main) { completion?(true) }
   }
 
   /// Shows the given row, making it visible.
@@ -202,8 +218,10 @@ open class AloeStackView: UIScrollView {
   /// Shows the given rows, making them visible.
   ///
   /// If `animated` is `true`, the changes are animated.
-  open func showRows(_ rows: [UIView], animated: Bool = false) {
-    rows.forEach { showRow($0, animated: animated) }
+  open func showRows(_ rows: [UIView], animated: Bool = false, completion: ((Bool) -> Void)? = nil) {
+    let group = DispatchGroup()
+    rows.forEach { group.enter(); showRow($0, animated: animated) { _ in group.leave() } }
+    group.notify(queue: .main) { completion?(true) }
   }
 
   /// Hides the given row if `isHidden` is `true`, or shows the given row if `isHidden` is `false`.
@@ -229,8 +247,10 @@ open class AloeStackView: UIScrollView {
   /// `false`.
   ///
   /// If `animated` is `true`, the change are animated.
-  open func setRowsHidden(_ rows: [UIView], isHidden: Bool, animated: Bool = false) {
-    rows.forEach { setRowHidden($0, isHidden: isHidden, animated: animated) }
+  open func setRowsHidden(_ rows: [UIView], isHidden: Bool, animated: Bool = false, completion: ((Bool) -> Void)? = nil) {
+    let group = DispatchGroup()
+    rows.forEach { group.enter(); setRowHidden($0, isHidden: isHidden, animated: animated) { _ in group.leave() } }
+    group.notify(queue: .main) { completion?(true) }
   }
 
   /// Returns `true` if the given row is hidden, `false` otherwise.
