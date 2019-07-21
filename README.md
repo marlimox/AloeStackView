@@ -63,7 +63,7 @@ automatically keeps the UI up-to-date.
 
 * Widely used and vetted in a highly-trafficked iOS app.
 
-* Small, easy-to-understand codebase (under 500 lines of code) with no external dependencies keeps binary size
+* Small, easy-to-understand codebase (under 600 lines of code) with no external dependencies keeps binary size
 increase to a minimum and makes code contributions and debugging painless.
 
 ## System Requirements
