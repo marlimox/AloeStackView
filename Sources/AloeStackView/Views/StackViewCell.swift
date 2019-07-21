@@ -226,10 +226,18 @@ extension StackViewCell: UIGestureRecognizerDelegate {
     guard let view = gestureRecognizer.view else { return false }
 
     let location = touch.location(in: view)
-    let hitView = view.hitTest(location, with: nil)
+    var hitView = view.hitTest(location, with: nil)
 
-    // Ensure UIControls get the touches instead of the tap gesture.
-    return !(hitView is UIControl)
+    // Traverse the chain of superviews looking for any UIControls.
+    while hitView != view && hitView != nil {
+      if hitView is UIControl {
+        // Ensure UIControls get the touches instead of the tap gesture.
+        return false
+      }
+      hitView = hitView?.superview
+    }
+
+    return true
   }
 
 }
