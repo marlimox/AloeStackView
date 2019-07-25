@@ -13,6 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import AloeStackView
 import UIKit
 
 public class SwitchRowView: UIView {
@@ -73,6 +74,15 @@ public class SwitchRowView: UIView {
       switchView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -2),
       switchView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -1)
     ])
+  }
+
+}
+
+extension SwitchRowView: Tappable {
+
+  public func didTapView() {
+    switchView.setOn(!switchView.isOn, animated: true)
+    switchView.sendActions(for: .valueChanged)
   }
 
 }
