@@ -328,6 +328,18 @@ open class AloeStackView: UIScrollView {
     }
   }
 
+  /// Set whether the layout margins of the superview should be included.
+  ///
+  /// This comes in handy as iPhones and iPads can have different layout margins
+  /// and convenient as it automatically provide an inset to all the rows
+  /// without having to set it explicitly.
+  open override var preservesSuperviewLayoutMargins: Bool {
+    didSet {
+        stackView.preservesSuperviewLayoutMargins = preservesSuperviewLayoutMargins
+        stackView.isLayoutMarginsRelativeArrangement = preservesSuperviewLayoutMargins
+    }
+  }
+
   /// Specifies the default inset of row separators.
   ///
   /// Only left and right insets are honored. This inset will be used for any new row that is added
