@@ -35,6 +35,30 @@ open class AloeStackView: UIScrollView {
 
   // MARK: - Public
 
+  // MARK: Configuring AloeStackView
+
+  /// The direction that rows are laid out in the stack view.
+  ///
+  /// If `axis` is `.vertical`, rows will be laid out in a vertical column. If `axis` is
+  /// `.horizontal`, rows will be laid out horizontally, side-by-side.
+  ///
+  /// This property also controls the direction of scrolling in the stack view. If `axis` is
+  /// `.vertical`, the stack view will scroll vertically, and rows will stretch to fill the width of
+  /// the stack view. If `axis` is `.horizontal`, the stack view will scroll horizontally, and rows
+  /// will be sized to fill the height of the stack view.
+  ///
+  /// The default value is `.vertical`.
+  open var axis: NSLayoutConstraint.Axis {
+    get { return stackView.axis }
+    set {
+      stackView.axis = newValue
+      updateStackViewAxisConstraint()
+      for case let cell as StackViewCell in stackView.arrangedSubviews {
+        cell.separatorAxis = newValue == .horizontal ? .vertical : .horizontal
+      }
+    }
+  }
+
   // MARK: Adding and Removing Rows
 
   /// Adds a row to the end of the stack view.
@@ -311,28 +335,40 @@ open class AloeStackView: UIScrollView {
   /// The default color matches the default color of separators in `UITableView`.
   open var separatorColor = AloeStackView.defaultSeparatorColor {
     didSet {
-      for cell in stackView.arrangedSubviews {
-        (cell as? StackViewCell)?.separatorColor = separatorColor
+      for case let cell as StackViewCell in stackView.arrangedSubviews {
+        cell.separatorColor = separatorColor
+      }
+    }
+  }
+
+  /// The width (or thickness) of separators in the stack view.
+  ///
+  /// The default width is 1px.
+  open var separatorWidth: CGFloat = 1 / UIScreen.main.scale {
+    didSet {
+      for case let cell as StackViewCell in stackView.arrangedSubviews {
+        cell.separatorWidth = separatorWidth
       }
     }
   }
 
   /// The height of separators in the stack view.
   ///
+  /// This property is the same as `separatorWidth` and is maintained for backwards compatibility.
+  ///
   /// The default height is 1px.
-  open var separatorHeight: CGFloat = 1 / UIScreen.main.scale {
-    didSet {
-      for cell in stackView.arrangedSubviews {
-        (cell as? StackViewCell)?.separatorHeight = separatorHeight
-      }
-    }
+  open var separatorHeight: CGFloat {
+    get { return separatorWidth }
+    set { separatorWidth = newValue }
   }
 
   /// Specifies the default inset of row separators.
   ///
-  /// Only left and right insets are honored. This inset will be used for any new row that is added
-  /// to the stack view. The default inset matches the default inset of cell separators in
-  /// `UITableView`, which are 15pt on the left and 0pt on the right.
+  /// Only left and right insets are honored when `axis` is `.vertical`, and only top and bottom
+  /// insets are honored when `axis` is `.horizontal`. This inset will be used for any new row that
+  /// is added to the stack view. The default left and right insets match the default inset of cell
+  /// separators in `UITableView`, which are 15pt on the left and 0pt on the right. The default top
+  /// and bottom insets are 0pt.
   open var separatorInset: UIEdgeInsets = AloeStackView.defaultSeparatorInset
 
   /// Sets the separator inset for the given row to the `UIEdgeInsets` provided.
@@ -435,6 +471,8 @@ open class AloeStackView: UIScrollView {
 
   private let stackView = UIStackView()
 
+  private var stackViewAxisConstraint: NSLayoutConstraint?
+
   private func setUpViews() {
     setUpSelf()
     setUpStackView()
@@ -452,6 +490,7 @@ open class AloeStackView: UIScrollView {
 
   private func setUpConstraints() {
     setUpStackViewConstraints()
+    updateStackViewAxisConstraint()
   }
 
   private func setUpStackViewConstraints() {
@@ -460,8 +499,17 @@ open class AloeStackView: UIScrollView {
       stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
       stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
       stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-      stackView.widthAnchor.constraint(equalTo: widthAnchor)
     ])
+  }
+
+  private func updateStackViewAxisConstraint() {
+    stackViewAxisConstraint?.isActive = false
+    if stackView.axis == .vertical {
+      stackViewAxisConstraint = stackView.widthAnchor.constraint(equalTo: widthAnchor)
+    } else {
+      stackViewAxisConstraint = stackView.heightAnchor.constraint(equalTo: heightAnchor)
+    }
+    stackViewAxisConstraint?.isActive = true
   }
 
   private func createCell(withContentView contentView: UIView) -> StackViewCell {
@@ -470,6 +518,7 @@ open class AloeStackView: UIScrollView {
     cell.rowBackgroundColor = rowBackgroundColor
     cell.rowHighlightColor = rowHighlightColor
     cell.rowInset = rowInset
+    cell.separatorAxis = axis == .horizontal ? .vertical : .horizontal
     cell.separatorColor = separatorColor
     cell.separatorHeight = separatorHeight
     cell.separatorInset = separatorInset
