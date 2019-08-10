@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A7497A9121746D9700BB692A /* AloeStackView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7497A9021746D9700BB692A /* AloeStackView.framework */; };
+		4D42E5BA22E499FE00D51F93 /* AloeStackView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7497A9021746D9700BB692A /* AloeStackView.framework */; };
+		4D42E5BB22E499FE00D51F93 /* AloeStackView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A7497A9021746D9700BB692A /* AloeStackView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A7497A932174725700BB692A /* SwitchRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7497A922174725700BB692A /* SwitchRowView.swift */; };
 		A7497A9721747DD600BB692A /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7497A9621747DD600BB692A /* PhotoViewController.swift */; };
 		A7497A9921755AD100BB692A /* ExpandingRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7497A9821755AD100BB692A /* ExpandingRowView.swift */; };
@@ -16,6 +17,20 @@
 		A74F70C0217155FE0054AA18 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A74F70BF217155FE0054AA18 /* Assets.xcassets */; };
 		A74F70C3217155FE0054AA18 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A74F70C1217155FE0054AA18 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		4D42E5BC22E499FE00D51F93 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				4D42E5BB22E499FE00D51F93 /* AloeStackView.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		A7420FAB21715DF500F2A343 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -35,7 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A7497A9121746D9700BB692A /* AloeStackView.framework in Frameworks */,
+				4D42E5BA22E499FE00D51F93 /* AloeStackView.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,6 +155,7 @@
 				A74F70B1217155FB0054AA18 /* Sources */,
 				A74F70B2217155FB0054AA18 /* Frameworks */,
 				A74F70B3217155FB0054AA18 /* Resources */,
+				4D42E5BC22E499FE00D51F93 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

@@ -41,7 +41,7 @@ open class StackViewCell: UIView {
   }
 
   // MARK: Open
-    
+
   open override var isHidden: Bool {
     didSet {
       guard isHidden != oldValue else { return }
@@ -52,9 +52,7 @@ open class StackViewCell: UIView {
   open var rowHighlightColor = UIColor(red: 217 / 255, green: 217 / 255, blue: 217 / 255, alpha: 1)
 
   open var rowBackgroundColor = UIColor.clear {
-    didSet {
-      backgroundColor = rowBackgroundColor
-    }
+    didSet { backgroundColor = rowBackgroundColor }
   }
 
   open var rowInset: UIEdgeInsets {
@@ -62,14 +60,27 @@ open class StackViewCell: UIView {
     set { layoutMargins = newValue }
   }
 
+  open var separatorAxis: NSLayoutConstraint.Axis = .horizontal {
+    didSet {
+      updateSeparatorAxisConstraints()
+      updateSeparatorInset()
+    }
+  }
+
   open var separatorColor: UIColor {
     get { return separatorView.color }
     set { separatorView.color = newValue }
   }
 
+  open var separatorWidth: CGFloat {
+    get { return separatorView.width }
+    set { separatorView.width = newValue }
+  }
+
+  /// Alias for `separatorWidth`. Maintained for backwards compatibility.
   open var separatorHeight: CGFloat {
-    get { return separatorView.height }
-    set { separatorView.height = newValue }
+    get { return separatorWidth }
+    set { separatorWidth = newValue }
   }
 
   open var separatorInset: UIEdgeInsets = .zero {
@@ -143,6 +154,8 @@ open class StackViewCell: UIView {
   private let separatorView = SeparatorView()
   private let tapGestureRecognizer = UITapGestureRecognizer()
 
+  private var separatorTopConstraint: NSLayoutConstraint?
+  private var separatorBottomConstraint: NSLayoutConstraint?
   private var separatorLeadingConstraint: NSLayoutConstraint?
   private var separatorTrailingConstraint: NSLayoutConstraint?
 
@@ -168,6 +181,7 @@ open class StackViewCell: UIView {
   private func setUpConstraints() {
     setUpContentViewConstraints()
     setUpSeparatorViewConstraints()
+    updateSeparatorAxisConstraints()
   }
 
   private func setUpContentViewConstraints() {
@@ -183,17 +197,10 @@ open class StackViewCell: UIView {
   }
 
   private func setUpSeparatorViewConstraints() {
-    let leadingConstraint = separatorView.leadingAnchor.constraint(equalTo: leadingAnchor)
-    let trailingConstraint = separatorView.trailingAnchor.constraint(equalTo: trailingAnchor)
-
-    NSLayoutConstraint.activate([
-      separatorView.bottomAnchor.constraint(equalTo: bottomAnchor),
-      leadingConstraint,
-      trailingConstraint
-    ])
-
-    separatorLeadingConstraint = leadingConstraint
-    separatorTrailingConstraint = trailingConstraint
+    separatorTopConstraint = separatorView.topAnchor.constraint(equalTo: topAnchor)
+    separatorBottomConstraint = separatorView.bottomAnchor.constraint(equalTo: bottomAnchor)
+    separatorLeadingConstraint = separatorView.leadingAnchor.constraint(equalTo: leadingAnchor)
+    separatorTrailingConstraint = separatorView.trailingAnchor.constraint(equalTo: trailingAnchor)
   }
 
   private func setUpTapGestureRecognizer() {
@@ -209,13 +216,22 @@ open class StackViewCell: UIView {
     tapHandler?(contentView)
   }
 
-  private func updateTapGestureRecognizerEnabled() {
-    tapGestureRecognizer.isEnabled = contentView is Tappable || tapHandler != nil
+  private func updateSeparatorAxisConstraints() {
+    separatorTopConstraint?.isActive = separatorAxis == .vertical
+    separatorBottomConstraint?.isActive = true
+    separatorLeadingConstraint?.isActive = separatorAxis == .horizontal
+    separatorTrailingConstraint?.isActive = true
   }
 
   private func updateSeparatorInset() {
+    separatorTopConstraint?.constant = separatorInset.top
+    separatorBottomConstraint?.constant = separatorAxis == .horizontal ? 0 : -separatorInset.bottom
     separatorLeadingConstraint?.constant = separatorInset.left
-    separatorTrailingConstraint?.constant = -separatorInset.right
+    separatorTrailingConstraint?.constant = separatorAxis == .vertical ? 0 : -separatorInset.right
+  }
+
+  private func updateTapGestureRecognizerEnabled() {
+    tapGestureRecognizer.isEnabled = contentView is Tappable || tapHandler != nil
   }
 
 }
@@ -226,10 +242,18 @@ extension StackViewCell: UIGestureRecognizerDelegate {
     guard let view = gestureRecognizer.view else { return false }
 
     let location = touch.location(in: view)
-    let hitView = view.hitTest(location, with: nil)
+    var hitView = view.hitTest(location, with: nil)
 
-    // Ensure UIControls get the touches instead of the tap gesture.
-    return !(hitView is UIControl)
+    // Traverse the chain of superviews looking for any UIControls.
+    while hitView != view && hitView != nil {
+      if hitView is UIControl {
+        // Ensure UIControls get the touches instead of the tap gesture.
+        return false
+      }
+      hitView = hitView?.superview
+    }
+
+    return true
   }
 
 }

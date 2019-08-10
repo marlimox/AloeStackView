@@ -10,8 +10,9 @@ A simple class for laying out a collection of views with a convenient API, while
 
 ## Introduction
 
-`AloeStackView` is a class that allows a collection of views to be laid out in a vertical list. In a broad sense, it is similar
-to `UITableView`, however its implementation is quite different and it makes a different set of trade-offs.
+`AloeStackView` is a class that allows a collection of views to be laid out in a vertical or horizontal list. In a broad
+sense, it is similar to `UITableView`, however its implementation is quite different and it makes a different set of
+trade-offs.
 
 We first started using `AloeStackView` at Airbnb in our iOS app in 2016. We have since used it to implement nearly
 200 screens in the app. The use cases are quite varied: everything from settings screens, to forms for creating a new
@@ -63,7 +64,7 @@ automatically keeps the UI up-to-date.
 
 * Widely used and vetted in a highly-trafficked iOS app.
 
-* Small, easy-to-understand codebase (under 500 lines of code) with no external dependencies keeps binary size
+* Small, easy-to-understand codebase (under 600 lines of code) with no external dependencies keeps binary size
 increase to a minimum and makes code contributions and debugging painless.
 
 ## System Requirements
@@ -124,7 +125,11 @@ public class MyViewController: AloeStackViewController {
 
 The API of `AloeStackView` generally deals with "rows". A row can be any `UIView` that you want to use in your UI.
 
-Rows are arranged in a vertical column, and each row stretches the full width of the `AloeStackView`.
+By default, rows are arranged in a vertical column, and each row stretches the full width of the `AloeStackView`.
+
+The `axis` property on `AloeStackView` can be used to change the orientation. When `axis` is set to `.horizontal`,
+rows are arranged next to each other, left-to-right, and the `AloeStackView` scrolls horizontally, with each row
+stretching the full height of the `AloeStackView`.
 
 To build a UI with `AloeStackView`, you generally begin by adding the rows that make up your UI:
 
@@ -248,17 +253,22 @@ stackView.separatorInset = .zero
 ```
 ![Add rows](Docs/Images/zero_separator_inset.png)
 
-As with `hidesSeparatorsByDefault`, this property only applies to new rows that are added. Rows already in the
-`AloeStackView` won't be affected.
+In vertical orientation, only the left and right properties of `separatorInset` are used.
+
+In horizontal orientation, separators are displayed vertically between rows. In this case, only the top and bottom
+properties of `separatorInset` are used, and they control the spacing on the top and bottom of separators.
+
+As with `hidesSeparatorsByDefault`, the `separatorInset` property only applies to new rows that are added.
+Rows already in the `AloeStackView` won't be affected.
 
 You can change the separator inset for existing rows with the `setSeparatorInset(forRow:)` and
 `setSeparatorInset(forRows:)` methods.
 
-`AloeStackView` also provides properties for customizing the color and height of separators:
+`AloeStackView` also provides properties for customizing the color and width (or thickness) of separators:
 
 ```swift
 stackView.separatorColor = .blue
-stackView.separatorHeight = 2
+stackView.separatorWidth = 2
 ```
 ![Add rows](Docs/Images/large_blue_separators.png)
 

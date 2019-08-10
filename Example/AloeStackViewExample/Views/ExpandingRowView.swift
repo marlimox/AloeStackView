@@ -33,7 +33,7 @@ public class ExpandingRowView: UIStackView, Tappable, Highlightable {
   // MARK: Public
 
   public func didTapView() {
-    textLabel.text = (textLabel.text ?? "") + lines[nextLine]
+    textLabel.text = (textLabel.text ?? "") + "\n" + lines[nextLine]
     nextLine += 1
     if nextLine == lines.count {
       nextLine = 0
@@ -83,19 +83,19 @@ public class ExpandingRowView: UIStackView, Tappable, Highlightable {
 
   private let lines = [
     "Two households, both alike in dignity,",
-    "\nIn fair Verona, where we lay our scene,",
-    "\nFrom ancient grudge break to new mutiny,",
-    "\nWhere civil blood makes civil hands unclean.",
-    "\nFrom forth the fatal loins of these two foes",
-    "\nA pair of star-cross'd lovers take their life;",
-    "\nWhose misadventured piteous overthrows",
-    "\nDo with their death bury their parents' strife.",
-    "\nThe fearful passage of their death-mark'd love,",
-    "\nAnd the continuance of their parents' rage,",
-    "\nWhich, but their children's end, nought could remove,",
-    "\nIs now the two hours' traffic of our stage;",
-    "\nThe which if you with patient ears attend,",
-    "\nWhat here shall miss, our toil shall strive to mend."
+    "In fair Verona, where we lay our scene,",
+    "From ancient grudge break to new mutiny,",
+    "Where civil blood makes civil hands unclean.",
+    "From forth the fatal loins of these two foes",
+    "A pair of star-cross'd lovers take their life;",
+    "Whose misadventured piteous overthrows",
+    "Do with their death bury their parents' strife.",
+    "The fearful passage of their death-mark'd love,",
+    "And the continuance of their parents' rage,",
+    "Which, but their children's end, nought could remove,",
+    "Is now the two hours' traffic of our stage;",
+    "The which if you with patient ears attend,",
+    "What here shall miss, our toil shall strive to mend."
   ]
 
 }

@@ -22,6 +22,7 @@ internal final class SeparatorView: UIView {
   internal init() {
     super.init(frame: .zero)
     translatesAutoresizingMaskIntoConstraints = false
+    setUpConstraints()
   }
 
   internal required init?(coder aDecoder: NSCoder) {
@@ -31,11 +32,7 @@ internal final class SeparatorView: UIView {
   // MARK: Internal
 
   internal override var intrinsicContentSize: CGSize {
-    #if swift(>=4.2)
-    return CGSize(width: UIView.noIntrinsicMetric, height: height)
-    #else
-    return CGSize(width: UIViewNoIntrinsicMetric, height: height)
-    #endif
+    return CGSize(width: width, height: width)
   }
 
   internal var color: UIColor {
@@ -43,8 +40,17 @@ internal final class SeparatorView: UIView {
     set { backgroundColor = newValue }
   }
 
-  internal var height: CGFloat = 1 {
+  internal var width: CGFloat = 1 {
     didSet { invalidateIntrinsicContentSize() }
+  }
+
+  // MARK: Private
+
+  private func setUpConstraints() {
+    setContentHuggingPriority(.defaultLow, for: .horizontal)
+    setContentHuggingPriority(.defaultLow, for: .vertical)
+    setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+    setContentCompressionResistancePriority(.defaultLow, for: .vertical)
   }
 
 }
