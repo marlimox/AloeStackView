@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name     = 'AloeStackView'
-  s.version  = '1.1.1'
+  s.version  = '1.2.0'
   s.license  = 'Apache License, Version 2.0'
   s.summary  = 'A simple class for laying out a collection of views with a convenient API, while leveraging the power of Auto Layout.'
   s.homepage = 'https://github.com/airbnb/AloeStackView'
