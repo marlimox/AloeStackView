@@ -30,13 +30,10 @@ internal class AnimationCoordinator {
   }
 
   internal func startAnimation() {
-    let config = target.contentView as? CustomAnimating
-
     willBeginAnimation?()
-
     UIView.animate(withDuration: AnimationCoordinator.defaultAnimationDuration,
                    delay: 0,
-                   usingSpringWithDamping: config?.springDamping ?? 1,
+                   usingSpringWithDamping: animatable?.springDamping ?? 1,
                    initialSpringVelocity: 0,
                    options: [.curveEaseInOut, .allowUserInteraction, .beginFromCurrentState],
                    animations: {
@@ -48,7 +45,6 @@ internal class AnimationCoordinator {
     }
   }
 
-
   // MARK: Private
 
   private let target: StackViewCell
@@ -56,24 +52,28 @@ internal class AnimationCoordinator {
   private let animations: () -> Void
   private let completion: ((Bool) -> Void)?
 
+  private var animatable: CustomAnimating? {
+    return target.contentView as? CustomAnimating
+  }
+
   private lazy var willBeginAnimation: (() -> Void)? = {
     switch state {
-    case .insert: return (target.contentView as? CustomAnimating)?.insertAnimationWillBegin
-    case .remove: return (target.contentView as? CustomAnimating)?.removeAnimationWillBegin
+    case .insert: return animatable?.insertAnimationWillBegin
+    case .remove: return animatable?.removeAnimationWillBegin
     }
   }()
     
   private lazy var animate: (() -> Void)? = {
     switch state {
-    case .insert: return (target.contentView as? CustomAnimating)?.animateInsert
-    case .remove: return (target.contentView as? CustomAnimating)?.animateRemove
+    case .insert: return animatable?.animateInsert
+    case .remove: return animatable?.animateRemove
     }
   }()
     
   private lazy var animationDidEnd: ((Bool) -> Void)? = {
     switch state {
-    case .insert: return (target.contentView as? CustomAnimating)?.insertAnimationDidEnd
-    case .remove: return (target.contentView as? CustomAnimating)?.removeAnimationDidEnd
+    case .insert: return animatable?.insertAnimationDidEnd
+    case .remove: return animatable?.removeAnimationDidEnd
     }
   }()
 

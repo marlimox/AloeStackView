@@ -13,15 +13,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import UIKit
+
 /**
  * The rows in `AloeStackView` help Custom Animation to work.
  *
  * Rows that are added to an `AloeStackView` can conform to this protocol to have their
  * You can freely change the state animation of each contentView when a row is inserted or removed.
  */
-
-import UIKit
-
 public protocol CustomAnimating {
 
   /// The springDamping value used to determine the amount of 'bounce'
