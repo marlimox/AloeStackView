@@ -35,6 +35,8 @@ public class MainViewController: AloeStackViewController {
 
   private func setUpStackView() {
     stackView.automaticallyHidesLastSeparator = true
+    edgesForExtendedLayout = []
+    navigationController?.navigationBar.isTranslucent = false
   }
 
   private func setUpRows() {
@@ -43,6 +45,7 @@ public class MainViewController: AloeStackViewController {
     setUpHiddenRows()
     setUpExpandingRowView()
     setUpHorizontalRow()
+    // when hide PhotoRow stackview can also scroll
     setUpPhotoRow()
   }
 
