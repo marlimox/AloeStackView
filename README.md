@@ -6,21 +6,12 @@ A simple class for laying out a collection of views with a convenient API, while
 [![Version](https://img.shields.io/cocoapods/v/AloeStackView.svg)](https://cocoapods.org/pods/AloeStackView)
 [![License](https://img.shields.io/cocoapods/l/AloeStackView.svg)](https://cocoapods.org/pods/AloeStackView)
 [![Platform](https://img.shields.io/cocoapods/p/AloeStackView.svg)](https://cocoapods.org/pods/AloeStackView)
-[![Build status](https://travis-ci.com/airbnb/AloeStackView.svg?branch=master)](https://travis-ci.com/airbnb/AloeStackView)
 
 ## Introduction
 
 `AloeStackView` is a class that allows a collection of views to be laid out in a vertical or horizontal list. In a broad
 sense, it is similar to `UITableView`, however its implementation is quite different and it makes a different set of
 trade-offs.
-
-We first started using `AloeStackView` at Airbnb in our iOS app in 2016. We have since used it to implement nearly
-200 screens in the app. The use cases are quite varied: everything from settings screens, to forms for creating a new
-listing, to the listing share sheet.
-
-|![Airbnb app 1](Docs/Images/airbnb_app_1.png)|![Airbnb app 2](Docs/Images/airbnb_app_2.png)|![Airbnb app 3](Docs/Images/airbnb_app_3.png)|![Airbnb app 11](Docs/Images/airbnb_app_11.png)|![Airbnb app 4](Docs/Images/airbnb_app_4.png)|![Airbnb app 8](Docs/Images/airbnb_app_8.png)|
-| --- | --- | --- | --- | --- | --- |
-|![Airbnb app 7](Docs/Images/airbnb_app_7.png)|![Airbnb app 6](Docs/Images/airbnb_app_6.png)|![Airbnb app 5](Docs/Images/airbnb_app_5.png)|![Airbnb app 9](Docs/Images/airbnb_app_9.png)|![Airbnb app 10](Docs/Images/airbnb_app_10.png)|![Airbnb app 12](Docs/Images/airbnb_app_12.png)| 
 
 `AloeStackView` focuses first and foremost on making UI very quick, simple, and straightforward to implement. It
 does this in two ways:
@@ -368,13 +359,10 @@ perform worse and use more memory for longer screens than a class like `UITableV
 generally not appropriate for screens that contain many views of the same type, all showing similar data. Classes like
 `UITableView` or `UICollectionView` often perform better in those situations.
 
-While `AloeStackView` is not the only piece of infrastructure we use to build iOS UI at Airbnb, it has been valuable for
-us in many situations. We hope you find it useful too!
-
 ## Installation
 
 `AloeStackView` can be installed with [Carthage](https://github.com/Carthage/Carthage). Simply add
-`github "airbnb/AloeStackView"` to your Cartfile.
+`github "<TODO>"` to your Cartfile.
 
 `AloeStackView` can be installed with [CocoaPods](http://cocoapods.org). Simply add
 `pod 'AloeStackView'` to your Podfile.
@@ -397,13 +385,9 @@ company has found this library useful!
 
 Marli Oshlack (marli@oshlack.com)
 
-Fan Cox (fan.cox@airbnb.com)
-
-Arthur Pang (arthur.pang@airbnb.com)
-
 ## Contributors
 
-`AloeStackView` has benefited from the contributions of many other Airbnb engineers:
+`AloeStackView` has benefited from the contributions of many other engineers:
 
 Daniel Crampton, Francisco Diaz, David He, Jeff Hodnett, Eric Horacek, Garrett Larson, Jasmine Lee, Isaac Lim,
 Jacky Lu, Noah Martin, Phil Nachum, Gonzalo Nuñez, Laura Skelton, Cal Stephens, and Ortal Yahdav

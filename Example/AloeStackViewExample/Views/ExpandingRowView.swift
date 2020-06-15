@@ -1,5 +1,5 @@
 // Created by Marli Oshlack on 10/14/18.
-// Copyright 2018 Airbnb, Inc.
+// Copyright 2018.
 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
