@@ -362,7 +362,7 @@ generally not appropriate for screens that contain many views of the same type, 
 ## Installation
 
 `AloeStackView` can be installed with [Carthage](https://github.com/Carthage/Carthage). Simply add
-`github "<TODO>"` to your Cartfile.
+`github "marlimox/AloeStackView"` to your Cartfile.
 
 `AloeStackView` can be installed with [CocoaPods](http://cocoapods.org). Simply add
 `pod 'AloeStackView'` to your Podfile.
