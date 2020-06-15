@@ -197,7 +197,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 1000;
 				LastUpgradeCheck = 1000;
-				ORGANIZATIONNAME = "Airbnb, Inc.";
+				ORGANIZATIONNAME = "";
 				TargetAttributes = {
 					A74F6ED0216D5CB50054AA18 = {
 						CreatedOnToolsVersion = 10.0;
@@ -417,7 +417,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.airbnb.AloeStackView;
+				PRODUCT_BUNDLE_IDENTIFIER = com.oshlack.marli.AloeStackView;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -443,7 +443,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.airbnb.AloeStackView;
+				PRODUCT_BUNDLE_IDENTIFIER = com.oshlack.marli.AloeStackView;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -464,7 +464,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.airbnb.AloeStackViewTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.oshlack.marli.AloeStackViewTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -484,7 +484,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.airbnb.AloeStackViewTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.oshlack.marli.AloeStackViewTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
