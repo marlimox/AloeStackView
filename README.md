@@ -383,7 +383,9 @@ company has found this library useful!
 
 `AloeStackView` is developed and maintained by:
 
-Marli Oshlack (marli@oshlack.com)
+[Marli Oshlack](https://github.com/marlimox) (marli@oshlack.com)
+
+[Arthur Pang](https://github.com/apang42)
 
 ## Contributors
 
