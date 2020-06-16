@@ -41,17 +41,16 @@ public class MainViewController: AloeStackViewController {
     setUpDescriptionRow()
     setUpSwitchRow()
     setUpHiddenRows()
+    setUpCustomAnimatingDescriptionRow()
+    setUpCustomAnimatingRow()
     setUpExpandingRowView()
     setUpHorizontalRow()
     setUpPhotoRow()
   }
 
   private func setUpDescriptionRow() {
-    let label = UILabel()
-    label.font = UIFont.preferredFont(forTextStyle: .body)
-    label.numberOfLines = 0
-    label.text = "This simple app shows some ways you can use AloeStackView to lay out a screen in your app."
-    stackView.addRow(label)
+    let descriptionRow = TitleCaptionRowView(titleText: "This simple app shows some ways you can use AloeStackView to lay out a screen in your app.")
+    stackView.addRow(descriptionRow)
   }
 
   private func setUpSwitchRow() {
@@ -89,6 +88,33 @@ public class MainViewController: AloeStackViewController {
 
     stackView.setInset(forRows: hiddenRows, inset: rowInset)
     stackView.setSeparatorInset(forRows: Array(hiddenRows.dropLast()), inset: separatorInset)
+  }
+
+  private func setUpCustomAnimatingDescriptionRow() {
+    let animatableRow = TitleCaptionRowView(titleText: "Customizing Row Animation", captionText: "(Try tapping on the Row!)")
+    stackView.addRow(animatableRow)
+    stackView.setTapHandler(forRow: animatableRow) { [weak self] _ in
+      guard let `self` = self else { return }
+      let isHidden = self.stackView.isRowHidden(self.customAnimatingLabel)
+      self.stackView.setRowHidden(self.customAnimatingLabel, isHidden: !isHidden, animated: true)
+    }
+  }
+
+  private let customAnimatingLabel = CustomAnimatingLabel()
+
+  private func setUpCustomAnimatingRow() {
+    customAnimatingLabel.text = "Customizing Row Animation"
+
+    stackView.addRow(customAnimatingLabel)
+    stackView.hideRow(customAnimatingLabel)
+
+    let rowInset = UIEdgeInsets(
+      top: stackView.rowInset.top,
+      left: stackView.rowInset.left * 2,
+      bottom: stackView.rowInset.bottom,
+      right: stackView.rowInset.right)
+
+    stackView.setInset(forRow: customAnimatingLabel, inset: rowInset)
   }
 
   private func setUpExpandingRowView() {
@@ -168,30 +194,9 @@ public class MainViewController: AloeStackViewController {
   }
 
   private func setUpPhotoRow() {
-    let titleLabel = UILabel()
-    titleLabel.font = UIFont.preferredFont(forTextStyle: .body)
-    titleLabel.numberOfLines = 0
-    titleLabel.text = "Handle user interaction"
-    stackView.addRow(titleLabel)
-    stackView.hideSeparator(forRow: titleLabel)
-    stackView.setInset(forRow: titleLabel, inset: UIEdgeInsets(
-      top: stackView.rowInset.top,
-      left: stackView.rowInset.left,
-      bottom: 4,
-      right: stackView.rowInset.right))
-
-    let captionLabel = UILabel()
-    captionLabel.font = UIFont.preferredFont(forTextStyle: .caption2)
-    captionLabel.textColor = .blue
-    captionLabel.numberOfLines = 0
-    captionLabel.text = "(Try tapping on the photo!)"
-    stackView.addRow(captionLabel)
-    stackView.hideSeparator(forRow: captionLabel)
-    stackView.setInset(forRow: captionLabel, inset: UIEdgeInsets(
-      top: 0,
-      left: stackView.rowInset.left,
-      bottom: stackView.rowInset.bottom,
-      right: stackView.rowInset.right))
+    let row = TitleCaptionRowView(titleText: "Handle user interaction", captionText: "(Try tapping on the photo!)")
+    stackView.addRow(row)
+    stackView.hideSeparator(forRow: row)
 
     guard let image = UIImage(named: "lobster-dog") else { return }
     let aspectRatio = image.size.height / image.size.width

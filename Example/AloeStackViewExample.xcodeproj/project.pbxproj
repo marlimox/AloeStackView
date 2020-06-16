@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		4D42E5BA22E499FE00D51F93 /* AloeStackView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7497A9021746D9700BB692A /* AloeStackView.framework */; };
 		4D42E5BB22E499FE00D51F93 /* AloeStackView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A7497A9021746D9700BB692A /* AloeStackView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4A67EB2E2186D8C100D134F7 /* TitleCaptionRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A67EB2D2186D8C100D134F7 /* TitleCaptionRowView.swift */; };
+		4A67EB302186D91F00D134F7 /* CustomAnimatingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A67EB2F2186D91F00D134F7 /* CustomAnimatingLabel.swift */; };
+		A7497A9121746D9700BB692A /* AloeStackView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7497A9021746D9700BB692A /* AloeStackView.framework */; };
 		A7497A932174725700BB692A /* SwitchRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7497A922174725700BB692A /* SwitchRowView.swift */; };
 		A7497A9721747DD600BB692A /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7497A9621747DD600BB692A /* PhotoViewController.swift */; };
 		A7497A9921755AD100BB692A /* ExpandingRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7497A9821755AD100BB692A /* ExpandingRowView.swift */; };
@@ -33,6 +36,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4A67EB2D2186D8C100D134F7 /* TitleCaptionRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleCaptionRowView.swift; sourceTree = "<group>"; };
+		4A67EB2F2186D91F00D134F7 /* CustomAnimatingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnimatingLabel.swift; sourceTree = "<group>"; };
 		A7420FAB21715DF500F2A343 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A7497A9021746D9700BB692A /* AloeStackView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AloeStackView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7497A922174725700BB692A /* SwitchRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchRowView.swift; sourceTree = "<group>"; };
@@ -94,8 +99,10 @@
 		A7420FA921715CC400F2A343 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				4A67EB2D2186D8C100D134F7 /* TitleCaptionRowView.swift */,
 				A7497A922174725700BB692A /* SwitchRowView.swift */,
 				A7497A9821755AD100BB692A /* ExpandingRowView.swift */,
+				4A67EB2F2186D91F00D134F7 /* CustomAnimatingLabel.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -216,6 +223,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A67EB302186D91F00D134F7 /* CustomAnimatingLabel.swift in Sources */,
+				4A67EB2E2186D8C100D134F7 /* TitleCaptionRowView.swift in Sources */,
 				A74F70BB217155FC0054AA18 /* MainViewController.swift in Sources */,
 				A7497A9721747DD600BB692A /* PhotoViewController.swift in Sources */,
 				A74F70B9217155FC0054AA18 /* AppDelegate.swift in Sources */,
