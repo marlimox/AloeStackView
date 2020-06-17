@@ -237,6 +237,7 @@ open class AloeStackView: UIScrollView {
     guard let cell = row.superview as? StackViewCell, cell.isHidden != isHidden else { return }
 
     if animated {
+      cell.layoutIfNeeded()
       UIView.animate(withDuration: 0.3) {
         cell.isHidden = isHidden
         cell.layoutIfNeeded()
