@@ -40,6 +40,20 @@ open class AloeStackViewController: UIViewController {
         stackView.flashScrollIndicators()
     }
   }
+    
+  open override func viewDidLayoutSubviews() {
+    super.viewDidLayoutSubviews()
+    if stackViewCanAlwaysScroll {
+      if stackView.contentSize.height < view.frame.size.height {
+      var bottomPadding: CGFloat = 0
+      if #available(iOS 11.0, *) {
+        bottomPadding = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
+      }
+      // contentSize height need to bigger than view height
+      stackView.contentSize = CGSize(width: 0, height: view.frame.size.height - bottomPadding + 0.5)
+      }
+    }
+  }
 
   // MARK: Public
 
@@ -50,5 +64,10 @@ open class AloeStackViewController: UIViewController {
   ///
   /// Default is `false`.
   open var automaticallyFlashScrollIndicators = false
+    
+  /// When true, stackView can always scroll
+  ///
+  /// Default is `true`.
+  open var stackViewCanAlwaysScroll = true
 
 }
