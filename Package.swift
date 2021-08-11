@@ -11,6 +11,10 @@ let package = Package(
         .library(
             name: "AloeStackView", 
             targets: ["AloeStackView"]),
+        .library(
+            name: "AloeStackViewDynamic",
+            type: .dynamic,
+            targets: ["AloeStackView"]),
     ],
     dependencies: [],
     targets: [
